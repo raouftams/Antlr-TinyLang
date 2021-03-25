@@ -1,37 +1,28 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class TS {
     static public class Element {
         String name;
-        int type;
+        String type;
         String value;
         int declared;
 
-        public Element(String name,  int type, String value, int declared) {
+        public Element(String name,  String type, String value, int declared) {
             this.name = name;
             this.type = type;
             this.value = value;
             this.declared = declared;
         }
 
-        public Element(Element element) {
-            this.name = element.name;
-            this.type=element.type;
-        }
         //redéfinition de la fonction ToString pour l'affichage qui correspond a la table des symbole
         public String toString()
         {
-            String typeS;
-            if(this.type == 1){
-                typeS = "int";
-            }else{
-                if(this.type == 2) {
-                    typeS = "float";
-                }else{
-                    typeS = "string";
-                }
-            }
-            return  name + " type: " + typeS;
+            return  name + " type: " + this.type + " valeur: " + this.value + " déclarée " + this.declared;
+        }
+
+        public void setValue(String val){
+            this.value = val;
         }
     }
     // L va contenir chaque variable du programme et son type
@@ -60,6 +51,11 @@ public class TS {
     // afficherTS elle affiche toute la table des Symbole
     public void afficheTS()
     {
-        this.L.toString();
+        System.out.println("\n Nom \t Type \t Valeur \t declaree");
+        System.out.println("--------------------------------------");
+        for (Map.Entry<String, Element> entry: this.L.entrySet()) {
+            System.out.println(entry.getValue().name + "\t" + entry.getValue().type + "\t" + entry.getValue().value + "\t" + entry.getValue().declared);
+            System.out.println("--------------------------------------");
+        }
     }
 }

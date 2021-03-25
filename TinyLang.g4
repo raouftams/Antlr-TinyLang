@@ -5,7 +5,7 @@ grammar TinyLang;
 
 /*Grammar rules */
 
-programme: 'compil' NOM_PROG '(' ')' '{' declarations 'Start' instructions '}' EOF ;
+programme: 'compil' NOM_PROG '(' ')' '{' declarations 'start' instructions '}' EOF ;
 
 declarations: declaration declarations| declaration |;
 
@@ -22,7 +22,8 @@ instruction: affectation| expression| condition| boucle| scan| print;
 affectation: IDENTIFIANT AFFECTATION expression ';';
 // ANTLR résout les ambiguïtés et donne la priorité au premiéres alternatives utilisées
 // dans ce cas "!=" > "==" > "<" > ... > "/".
-expression: expression '!=' expression
+expression: '(' expression ')'
+            | expression '!=' expression
             | expression '==' expression
             | expression '<' expression
             | expression '>' expression

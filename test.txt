@@ -1,0 +1,17 @@
+compil Algo(){
+    // Déclaration des variables
+    intCompil n, i, s;
+
+    start
+    //Ce programme calcul la somme des n premiers nombres
+    printCompil("Donner une valeur");
+    scanCompil(n);
+    s = 0;
+    i = 0;
+    do{
+        s = (s + i)*2;
+        i = i + 1;
+    }while(i < n)
+
+    printCompil(s);
+}

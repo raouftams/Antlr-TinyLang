@@ -1,12 +1,17 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+
 public class TS {
     static public class Element {
         String name;
         int type;
+        String value;
+        int declared;
 
-        public Element(String name,  int type) {
+        public Element(String name,  int type, String value, int declared) {
             this.name = name;
             this.type = type;
+            this.value = value;
+            this.declared = declared;
         }
 
         public Element(Element element) {
@@ -30,43 +35,31 @@ public class TS {
         }
     }
     // L va contenir chaque variable du programme et son type
-    public ArrayList<Element> L = new ArrayList<Element>();
+    public HashMap<String, Element> L = new HashMap<String, Element>();
+
     //Methode getElement permet de recupérer les variable sauvegarder dans la TS
-    public Element getElement(String name)
-    {
-        for (int i = 0; i < L.size(); i++) {
-            if(L.get(i).name.compareTo(name)==0)
-                return L.get(i);
-        }
-        return null;
-    }
-    //La Methode ContainsElement elle retourner vrai si l'element existe dans la TS
-    // sinon elle retourne faux
-    public boolean containsElement(String name)
-    {
-        return getElement(name) != null;
+    public Element getElement(String name) {
+        return this.L.get(name);
     }
 
-    //La methode addElement permet d'ajouter u element a la TS
-    public void addElement(Element e)
-    {
-        L.add(e);
+    //La Methode ContainsElement elle retourner vrai si l'element existe dans la TS et faux sinon
+    public boolean containsElement(String name) {
+        return this.L.containsKey(name);
     }
-    //La methode deleteElement permet de supprimer un element de la TS
-    public void deleteElement(Element e)
-    {
-        L.remove(e);
+
+    //La methode put permet d'ajouter un element a la TS avec le nom comme clé
+    public void addElement(Element e){
+        this.L.put(e.name, e);
     }
+
+    //La methode remove(key, value) permet de supprimer un element de la TS
+    public void deleteElement(Element e) {
+        this.L.remove(e.name, e);
+    }
+
     // afficherTS elle affiche toute la table des Symbole
     public void afficheTS()
-    { int i;
-        for(i=0;i<L.size();i++)
-        {
-            System.out.println("\t "+L.get(i).name +"\t \t "+ L.get(i).type);
-        }
-    }
-    public Element getElement(int i)
     {
-        return L.get(i);
+        this.L.toString();
     }
 }

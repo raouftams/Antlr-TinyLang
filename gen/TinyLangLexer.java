@@ -46,7 +46,7 @@ public class TinyLangLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'compil'", "'('", "')'", "'{'", "'Start'", "'}'", "';'", "'intCompil'", 
+			null, "'compil'", "'('", "')'", "'{'", "'start'", "'}'", "';'", "'intCompil'", 
 			"'floatCompil'", "'stringCompil'", "','", "'!='", "'=='", "'<'", "'>'", 
 			"'-'", "'+'", "'*'", "'/'", "'IF'", "'then'", "'else'", "'do'", "'while'", 
 			"'scanCompil'", "'printCompil'", null, null, null, null, "'='"
@@ -161,7 +161,7 @@ public class TinyLangLexer extends Lexer {
 		"?\u00f1\3\2\2\2A\u00fb\3\2\2\2C\u00fe\3\2\2\2E\u011c\3\2\2\2G\u011e\3"+
 		"\2\2\2I\u0127\3\2\2\2KL\7e\2\2LM\7q\2\2MN\7o\2\2NO\7r\2\2OP\7k\2\2PQ\7"+
 		"n\2\2Q\4\3\2\2\2RS\7*\2\2S\6\3\2\2\2TU\7+\2\2U\b\3\2\2\2VW\7}\2\2W\n\3"+
-		"\2\2\2XY\7U\2\2YZ\7v\2\2Z[\7c\2\2[\\\7t\2\2\\]\7v\2\2]\f\3\2\2\2^_\7\177"+
+		"\2\2\2XY\7u\2\2YZ\7v\2\2Z[\7c\2\2[\\\7t\2\2\\]\7v\2\2]\f\3\2\2\2^_\7\177"+
 		"\2\2_\16\3\2\2\2`a\7=\2\2a\20\3\2\2\2bc\7k\2\2cd\7p\2\2de\7v\2\2ef\7E"+
 		"\2\2fg\7q\2\2gh\7o\2\2hi\7r\2\2ij\7k\2\2jk\7n\2\2k\22\3\2\2\2lm\7h\2\2"+
 		"mn\7n\2\2no\7q\2\2op\7c\2\2pq\7v\2\2qr\7E\2\2rs\7q\2\2st\7o\2\2tu\7r\2"+
@@ -216,9 +216,9 @@ public class TinyLangLexer extends Lexer {
 		"F\3\2\2\2\u011e\u0122\7$\2\2\u011f\u0121\13\2\2\2\u0120\u011f\3\2\2\2"+
 		"\u0121\u0124\3\2\2\2\u0122\u0123\3\2\2\2\u0122\u0120\3\2\2\2\u0123\u0125"+
 		"\3\2\2\2\u0124\u0122\3\2\2\2\u0125\u0126\7$\2\2\u0126H\3\2\2\2\u0127\u0128"+
-		"\t\13\2\2\u0128\u0129\3\2\2\2\u0129\u012a\b%\3\2\u012aJ\3\2\2\2\23\2\u00cc"+
+		"\t\13\2\2\u0128\u0129\3\2\2\2\u0129\u012a\b%\2\2\u012aJ\3\2\2\2\23\2\u00cc"+
 		"\u00d6\u00d8\u00e2\u00e7\u00ee\u00f7\u00fb\u00fe\u0104\u0108\u010c\u0112"+
-		"\u0119\u011c\u0122\4\2\3\2\b\2\2";
+		"\u0119\u011c\u0122\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

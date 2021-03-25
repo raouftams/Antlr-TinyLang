@@ -45,8 +45,8 @@ print_val: STRING | identifiants;
 
 
 /* TOKENS */
-SINGLE_LINE_COMMENT: '//' ~[\r\n]* -> channel(HIDDEN);
-MULTIPLE_LINE_COMMENT: '/*' (MULTIPLE_LINE_COMMENT|.)*? '*/' -> channel(HIDDEN);
+SINGLE_LINE_COMMENT: '//' ~[\r\n]* -> skip;
+MULTIPLE_LINE_COMMENT: '/*' (MULTIPLE_LINE_COMMENT|.)*? '*/' -> skip;
 NOM_PROG: [A-Z]([_]?[a-z A-Z])*;
 IDENTIFIANT:[a-zA-Z][a-zA-Z0-9]*;
 AFFECTATION: '=';

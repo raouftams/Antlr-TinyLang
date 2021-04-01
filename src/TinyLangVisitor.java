@@ -59,11 +59,17 @@ public interface TinyLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAffectation(TinyLangParser.AffectationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TinyLangParser#expression}.
+	 * Visit a parse tree produced by {@link TinyLangParser#expressionArithmetique}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(TinyLangParser.ExpressionContext ctx);
+	T visitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TinyLangParser#expressionLogique}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TinyLangParser#condition}.
 	 * @param ctx the parse tree

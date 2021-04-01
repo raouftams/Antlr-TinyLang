@@ -88,15 +88,25 @@ public interface TinyLangListener extends ParseTreeListener {
 	 */
 	void exitAffectation(TinyLangParser.AffectationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TinyLangParser#expression}.
+	 * Enter a parse tree produced by {@link TinyLangParser#expressionArithmetique}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(TinyLangParser.ExpressionContext ctx);
+	void enterExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TinyLangParser#expression}.
+	 * Exit a parse tree produced by {@link TinyLangParser#expressionArithmetique}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(TinyLangParser.ExpressionContext ctx);
+	void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyLangParser#expressionLogique}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangParser#expressionLogique}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TinyLangParser#condition}.
 	 * @param ctx the parse tree

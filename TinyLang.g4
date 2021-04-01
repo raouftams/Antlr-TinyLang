@@ -17,26 +17,27 @@ identifiants: IDENTIFIANT ',' identifiants | IDENTIFIANT ;
 
 instructions: instruction instructions| instruction;
 
-instruction: affectation| expression| condition| boucle| scan| print;
+instruction: affectation| expressionArithmetique| condition| boucle| scan| print;
 
-affectation: IDENTIFIANT AFFECTATION expression ';';
+affectation: IDENTIFIANT AFFECTATION expressionArithmetique ';';
 // ANTLR résout les ambiguïtés et donne la priorité au premiéres alternatives utilisées
 // dans ce cas "!=" > "==" > "<" > ... > "/".
-expression: '(' expression ')'
-            | expression '!=' expression
-            | expression '==' expression
-            | expression '<' expression
-            | expression '>' expression
-            | expression '-' expression
-            | expression '+' expression
-            | expression '*' expression
-            | expression '/' expression
+expressionArithmetique:  '(' expressionArithmetique ')'
+            | expressionArithmetique '-' expressionArithmetique
+            | expressionArithmetique '+' expressionArithmetique
+            | expressionArithmetique '*' expressionArithmetique
+            | expressionArithmetique '/' expressionArithmetique
             | IDENTIFIANT| CNST| INT| FLOAT| STRING;
 
-condition: 'IF''(' expression ')''then''{'instructions'}' optelse;
+expressionLogique: expressionArithmetique '!=' expressionArithmetique
+                | expressionArithmetique '==' expressionArithmetique
+                | expressionArithmetique '<' expressionArithmetique
+                | expressionArithmetique '>' expressionArithmetique;
+
+condition: 'IF''(' expressionLogique ')''then''{'instructions'}' optelse;
 optelse: 'else''{' instructions '}'| ;
 
-boucle: 'do' '{' instructions '}' 'while' '(' expression ')';
+boucle: 'do' '{' instructions '}' 'while' '(' expressionLogique ')';
 
 scan: 'scanCompil''('identifiants')'';';
 

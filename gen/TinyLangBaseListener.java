@@ -114,13 +114,25 @@ public class TinyLangBaseListener implements TinyLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(TinyLangParser.ExpressionContext ctx) { }
+	@Override public void enterExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(TinyLangParser.ExpressionContext ctx) { }
+	@Override public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -19,7 +19,7 @@ null
 '=='
 '<'
 '>'
-'IF'
+'if'
 'then'
 'else'
 'do'

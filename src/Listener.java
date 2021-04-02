@@ -25,12 +25,6 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitProgramme(TinyLangParser.ProgrammeContext ctx) {
-        System.out.println("\n ctx \t Type ");
-        System.out.println("--------------------------------------");
-        for (Map.Entry<ParserRuleContext, String> entry: this.Ruletype.entrySet()) {
-            System.out.println(entry.getKey() + "\t" + entry.getValue());
-            System.out.println("--------------------------------------");
-        }
         if (this.erreurs.size() == 0){
             //Aucune erreur dans le programme
             this.nbErreurs = 0;
@@ -68,14 +62,13 @@ public class Listener extends TinyLangBaseListener{
     public void exitAffectation(TinyLangParser.AffectationContext ctx) {
         if (ctx.IDENTIFIANT() != null){
             if (!table.containsElement(ctx.IDENTIFIANT().getText())){
-                this.erreurs.add("Erreur: la variable " + ctx.IDENTIFIANT().getText() + " n'est pas declaree");
+                this.erreurs.add("Erreur: la variable " + ctx.IDENTIFIANT().getText() + "  n'est pas declarée");
             }
             else{
                 //dans le cas ou la variable et declarer on verifie le type de l'idf et la variable affecter
                 //on recuperer le type de la variable de la table de hachage Ruletype
-                System.out.println(this.Ruletype.get(ctx.expressionArithmetique()));
-                if ((table.getElement(ctx.IDENTIFIANT().getText()).type).equals (Ruletype.get(ctx.expressionArithmetique()))) {
-                    this.erreurs.add("Incompatibilité des types de la variable "+table.getElement(ctx.IDENTIFIANT().getText())+ " et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
+                if (!(table.getElement(ctx.IDENTIFIANT().getText()).type).equals(Ruletype.get(ctx.expressionArithmetique()))) {
+                    this.erreurs.add("Erreur: Incompatibilité des types de la variable ["+table.getElement(ctx.IDENTIFIANT().getText())+ "] et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
                 }
             }
         }
@@ -84,23 +77,43 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) {
-        if(ctx.IDENTIFIANT() != null){
-            if(!table.containsElement(ctx.IDENTIFIANT().getText())) {
+        if(ctx.IDENTIFIANT() != null) {
+            if (!table.containsElement(ctx.IDENTIFIANT().getText())) {
                 this.erreurs.add("Erreur: la variable " + ctx.IDENTIFIANT().getText() + "n'est pas declaree");
-            } else{
-                if (!this.pfExpression.empty()){
-                    String type = this.pfExpression.pop();
-                    if (type.equals(this.table.getElement(ctx.IDENTIFIANT().getText()).type)){
-                        this.pfExpression.push(type);
-                        this.Ruletype.put(ctx, type);
-                    }else{
-                        this.erreurs.add("Incompatibilité de type dans l'expression, ligne: " + ctx.start.getLine());
-                    }
-                }else{
-                    this.pfExpression.push(this.table.getElement(ctx.IDENTIFIANT().getText()).type);
+            } else {
+                this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
+            }
+        }else{
+            if (ctx.INT() != null){
+                this.checkExprType(ctx, "intCompil");
+            }else {
+                if(ctx.FLOAT() != null){
+                    this.checkExprType(ctx, "floatCompil");
                 }
             }
+        }
 
+        if (ctx.getParent().getChild(1).getText().equals("=")){
+            if(!this.pfExpression.empty()){
+                String exprType = this.pfExpression.pop();
+                this.Ruletype.put(ctx, exprType);
+                this.pfExpression.clear();
+            }
+        }
+    }
+
+
+    private void checkExprType(TinyLangParser.ExpressionArithmetiqueContext ctx, String type){
+        if (!this.pfExpression.empty()) {
+            String registredType = this.pfExpression.pop();
+            if (type.equals(registredType)) {
+                this.pfExpression.push(type);
+                this.Ruletype.put(ctx, type);
+            } else {
+                this.erreurs.add("Incompatibilité de type dans l'expression, ligne: " + ctx.start.getLine());
+            }
+        } else {
+            this.pfExpression.push(this.table.getElement(ctx.IDENTIFIANT().getText()).type);
         }
     }
 }

@@ -34,7 +34,7 @@ expressionLogique: expressionArithmetique '!=' expressionArithmetique
                 | expressionArithmetique '<' expressionArithmetique
                 | expressionArithmetique '>' expressionArithmetique;
 
-condition: 'IF''(' expressionLogique ')''then''{'instructions'}' optelse;
+condition: 'if''(' expressionLogique ')''then''{'instructions'}' optelse;
 optelse: 'else''{' instructions '}'| ;
 
 boucle: 'do' '{' instructions '}' 'while' '(' expressionLogique ')';
@@ -53,6 +53,6 @@ IDENTIFIANT:[a-zA-Z][a-zA-Z0-9]*;
 AFFECTATION: '=';
 CNST: ([1-9][0-9]*|'0');
 INT: [+]?([1-9][0-9]*|'0');
-FLOAT: '0'|[+]?[1-9][0-9]*('.'[0-9]*) ;
+FLOAT: '0'|[+]?[1-9][0-9]*('.'[0-9]+) ;
 STRING: '"' .*? '"';
 WHITESPACE: [ \n\t\r] -> skip;

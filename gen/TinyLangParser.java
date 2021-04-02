@@ -44,7 +44,7 @@ public class TinyLangParser extends Parser {
 		return new String[] {
 			null, "'compil'", "'('", "')'", "'{'", "'start'", "'}'", "';'", "'intCompil'", 
 			"'floatCompil'", "'stringCompil'", "','", "'-'", "'+'", "'*'", "'/'", 
-			"'!='", "'=='", "'<'", "'>'", "'IF'", "'then'", "'else'", "'do'", "'while'", 
+			"'!='", "'=='", "'<'", "'>'", "'if'", "'then'", "'else'", "'do'", "'while'", 
 			"'scanCompil'", "'printCompil'", null, null, null, null, "'='"
 		};
 	}

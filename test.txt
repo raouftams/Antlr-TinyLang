@@ -4,6 +4,10 @@ compil Algo(){
     floatCompil f, z;
 
     start
+    i = n + i;
+    f = f + z + z;
 
-    f = f + i;
+    if((n+i) == (z+f)) then {
+        i = 1;
+    }
 }

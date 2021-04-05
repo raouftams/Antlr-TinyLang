@@ -98,6 +98,16 @@ public interface TinyLangListener extends ParseTreeListener {
 	 */
 	void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TinyLangParser#opt}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpt(TinyLangParser.OptContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangParser#opt}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpt(TinyLangParser.OptContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TinyLangParser#expressionLogique}.
 	 * @param ctx the parse tree
 	 */
@@ -107,6 +117,16 @@ public interface TinyLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyLangParser#opl}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpl(TinyLangParser.OplContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangParser#opl}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpl(TinyLangParser.OplContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TinyLangParser#condition}.
 	 * @param ctx the parse tree

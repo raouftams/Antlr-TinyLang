@@ -23,16 +23,17 @@ affectation: IDENTIFIANT AFFECTATION expressionArithmetique ';';
 // ANTLR résout les ambiguïtés et donne la priorité au premiéres alternatives utilisées
 // dans ce cas "!=" > "==" > "<" > ... > "/".
 expressionArithmetique:  '(' expressionArithmetique ')'
-            | expressionArithmetique '-' expressionArithmetique
-            | expressionArithmetique '+' expressionArithmetique
-            | expressionArithmetique '*' expressionArithmetique
-            | expressionArithmetique '/' expressionArithmetique
-            | IDENTIFIANT| CNST| INT| FLOAT| STRING;
+            | expressionArithmetique opt expressionArithmetique
+            | IDENTIFIANT| CNST| INT| FLOAT;
 
-expressionLogique: expressionArithmetique '!=' expressionArithmetique
-                | expressionArithmetique '==' expressionArithmetique
-                | expressionArithmetique '<' expressionArithmetique
-                | expressionArithmetique '>' expressionArithmetique;
+// Les opérateurs arithmétiques
+opt: '/' | '*' | '+' | '-';
+
+expressionLogique: expressionArithmetique opl expressionArithmetique
+                | STRING opl STRING;
+
+// Les opérateurs logiques
+opl: '!=' | '==' | '<' | '>';
 
 condition: 'if''(' expressionLogique ')''then''{'instructions'}' optelse;
 optelse: 'else''{' instructions '}'| ;

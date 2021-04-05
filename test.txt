@@ -7,7 +7,7 @@ compil Algo(){
     i = n + i;
     f = f + z + z;
 
-    if((n+i) == (z+f)) then {
-        i = 1;
+    if( z+f != i-1 ) then {
+            i = 0;
     }
 }

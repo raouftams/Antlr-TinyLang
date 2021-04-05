@@ -84,7 +84,7 @@ public class Listener extends TinyLangBaseListener{
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
         }else{
-            if (ctx.INT() != null){
+            if (ctx.INT() != null || ctx.CNST() != null){
                 this.checkExprType(ctx, "intCompil");
             }else {
                 if(ctx.FLOAT() != null){
@@ -102,8 +102,25 @@ public class Listener extends TinyLangBaseListener{
         }
     }
 
+    @Override
+    public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) {
+        System.out.println(this.Ruletype.get(ctx.expressionArithmetique()));
+        if(ctx.expressionArithmetique() != null) {
+                this.checkExprType(ctx, this.Ruletype.get(ctx.expressionArithmetique()));
+        }else{
+            if (ctx.STRING() != null ){
+                this.checkExprType(ctx, "stringCompil");
+            }
+        }
 
-    private void checkExprType(TinyLangParser.ExpressionArithmetiqueContext ctx, String type){
+        if (ctx.getParent().getChild(1).getText().equals("=")){
+            if(!this.pfExpression.empty()){
+                this.pfExpression.clear();
+            }
+        }
+    }
+
+    private void checkExprType(ParserRuleContext ctx, String type){
         if (!this.pfExpression.empty()) {
             String registredType = this.pfExpression.pop();
             if (type.equals(registredType)) {
@@ -113,7 +130,7 @@ public class Listener extends TinyLangBaseListener{
                 this.erreurs.add("Incompatibilité de type dans l'expression, ligne: " + ctx.start.getLine());
             }
         } else {
-            this.pfExpression.push(this.table.getElement(ctx.IDENTIFIANT().getText()).type);
+            this.pfExpression.push(type);
         }
     }
 }

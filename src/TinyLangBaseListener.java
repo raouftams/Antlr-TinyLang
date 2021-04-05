@@ -124,6 +124,18 @@ public class TinyLangBaseListener implements TinyLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOpt(TinyLangParser.OptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOpt(TinyLangParser.OptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -131,6 +143,18 @@ public class TinyLangBaseListener implements TinyLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOpl(TinyLangParser.OplContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOpl(TinyLangParser.OplContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

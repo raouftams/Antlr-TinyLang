@@ -1,13 +1,18 @@
 compil Algo(){
     // Déclaration des variables
-    intCompil n, i, s;
+    intCompil n, i, s, c, d, k;
     floatCompil f, z;
+    stringCompil ch;
 
     start
-    i = n + i;
+    i = n + i *c -d /k;
     f = f + z + z;
 
-    if( z+f != i-1 ) then {
+    if( n != i ) then {
             i = 0;
     }
+
+    do{
+        i = n;
+    }while( i == ch)
 }

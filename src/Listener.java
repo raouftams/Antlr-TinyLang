@@ -83,14 +83,12 @@ public class Listener extends TinyLangBaseListener{
             } else {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
-        }else{
-            if (ctx.INT() != null || ctx.CNST() != null){
-                this.checkExprType(ctx, "intCompil");
-            }else {
-                if(ctx.FLOAT() != null){
-                    this.checkExprType(ctx, "floatCompil");
-                }
-            }
+        }
+        if (ctx.INT() != null || ctx.CNST() != null){
+            this.checkExprType(ctx, "intCompil");
+        }
+        if(ctx.FLOAT() != null){
+            this.checkExprType(ctx, "floatCompil");
         }
 
         if (ctx.getParent().getChild(1).getText().equals("=")){
@@ -104,16 +102,20 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) {
-        System.out.println(this.Ruletype.get(ctx.expressionArithmetique()));
-        if(ctx.expressionArithmetique() != null) {
-                this.checkExprType(ctx, this.Ruletype.get(ctx.expressionArithmetique()));
-        }else{
-            if (ctx.STRING() != null ){
+        if(ctx.IDENTIFIANT() != null) {
+            this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
+        }
+        if (ctx.STRING() != null ){
                 this.checkExprType(ctx, "stringCompil");
             }
-        }
+        if(ctx.INT() != null){
+                this.checkExprType(ctx, "intCompil");
+            }
+        if(ctx.FLOAT() != null ){
+                this.checkExprType(ctx, "floatCompil");
+            }
 
-        if (ctx.getParent().getChild(1).getText().equals("=")){
+        if (ctx.getParent().getChild(0).getText().equals("if") || ctx.getParent().getChild(0).getText().equals("do")){
             if(!this.pfExpression.empty()){
                 this.pfExpression.clear();
             }
@@ -127,10 +129,11 @@ public class Listener extends TinyLangBaseListener{
                 this.pfExpression.push(type);
                 this.Ruletype.put(ctx, type);
             } else {
-                this.erreurs.add("Incompatibilité de type dans l'expression, ligne: " + ctx.start.getLine());
+                this.erreurs.add("Erreur, ligne " + ctx.start.getLine() + ": Incompatibilité de type dans l'expression ( " + type + " et " + registredType + " )");
             }
         } else {
             this.pfExpression.push(type);
         }
     }
+
 }

@@ -29,8 +29,8 @@ expressionArithmetique:  '(' expressionArithmetique ')'
 // Les opérateurs arithmétiques
 opt: '/' | '*' | '+' | '-';
 
-expressionLogique: expressionArithmetique opl expressionArithmetique
-                | STRING opl STRING;
+expressionLogique: expressionLogique opl expressionLogique
+                | STRING | IDENTIFIANT | INT | FLOAT | CNST;
 
 // Les opérateurs logiques
 opl: '!=' | '==' | '<' | '>';

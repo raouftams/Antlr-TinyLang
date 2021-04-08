@@ -18,10 +18,6 @@ public class Listener extends TinyLangBaseListener{
     private Stack<String> pfExpression = new Stack<>();
 
     LinkedList<String> erreurs = new LinkedList<>();
-    //elle nous permet de parcourir l'arbre et a chaque regle on fait un traitement
-    //ajout dans la ts par exemple
-    //exitdv parceque je doit recuperer le type 0 si float et 1  sinon
-
 
     @Override
     public void exitProgramme(TinyLangParser.ProgrammeContext ctx) {
@@ -53,7 +49,7 @@ public class Listener extends TinyLangBaseListener{
             if (!table.containsElement(v)){
                 table.addElement(element);
             }else{
-                this.erreurs.add("Erreur: double déclaration de la variable " + v);
+                this.addError("Erreur: double déclaration de la variable " + v);
             }
         }
     }
@@ -61,14 +57,11 @@ public class Listener extends TinyLangBaseListener{
     @Override
     public void exitAffectation(TinyLangParser.AffectationContext ctx) {
         if (ctx.IDENTIFIANT() != null){
-            if (!table.containsElement(ctx.IDENTIFIANT().getText())){
-                this.erreurs.add("Erreur: la variable " + ctx.IDENTIFIANT().getText() + "  n'est pas declarée");
-            }
-            else{
+            if (declared(ctx.IDENTIFIANT().getText())) {
                 //dans le cas ou la variable et declarer on verifie le type de l'idf et la variable affecter
                 //on recuperer le type de la variable de la table de hachage Ruletype
                 if (!(table.getElement(ctx.IDENTIFIANT().getText()).type).equals(Ruletype.get(ctx.expressionArithmetique()))) {
-                    this.erreurs.add("Erreur: Incompatibilité des types de la variable ["+table.getElement(ctx.IDENTIFIANT().getText())+ "] et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
+                    this.addError("Erreur: Incompatibilité des types de la variable ["+table.getElement(ctx.IDENTIFIANT().getText())+ "] et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
                 }
             }
         }
@@ -78,9 +71,7 @@ public class Listener extends TinyLangBaseListener{
     @Override
     public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) {
         if(ctx.IDENTIFIANT() != null) {
-            if (!table.containsElement(ctx.IDENTIFIANT().getText())) {
-                this.erreurs.add("Erreur: la variable " + ctx.IDENTIFIANT().getText() + "n'est pas declaree");
-            } else {
+            if (declared(ctx.IDENTIFIANT().getText())) {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
         }
@@ -103,7 +94,9 @@ public class Listener extends TinyLangBaseListener{
     @Override
     public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) {
         if(ctx.IDENTIFIANT() != null) {
-            this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
+            if (declared(ctx.IDENTIFIANT().getText())) {
+                this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
+            }
         }
         if (ctx.STRING() != null ){
                 this.checkExprType(ctx, "stringCompil");
@@ -129,11 +122,32 @@ public class Listener extends TinyLangBaseListener{
                 this.pfExpression.push(type);
                 this.Ruletype.put(ctx, type);
             } else {
-                this.erreurs.add("Erreur, ligne " + ctx.start.getLine() + ": Incompatibilité de type dans l'expression ( " + type + " et " + registredType + " )");
+                this.addError("Erreur, ligne " + ctx.start.getLine() + ": Incompatibilité de type dans l'expression ( " + type + " et " + registredType + " )");
             }
         } else {
             this.pfExpression.push(type);
         }
+    }
+
+    public LinkedList<String> getErreurs(){
+        return this.erreurs;
+    }
+
+    //Ajouter une erreur à la liste si elle n'existe pas
+    private void addError(String error){
+        if (!this.erreurs.contains(error)){
+            this.erreurs.add(error);
+        }
+    }
+
+
+    private boolean declared(String v){
+        if(!this.table.containsElement(v)){
+            String error = "Erreur: Variable " + v + " non déclarée";
+            this.addError(error);
+            return false;
+        }
+        return true;
     }
 
 }

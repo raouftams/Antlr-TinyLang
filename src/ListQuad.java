@@ -13,11 +13,13 @@ public class ListQuad {
         return quads.size()-1;
     }
 
+    //retourne le quad à l'index index
     public Quad getQuad(int index)
     {
         return quads.get(index);
     }
 
+    //retourne l'index du quad
     public int size()
     {
         return quads.size();

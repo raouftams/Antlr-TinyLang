@@ -7,69 +7,51 @@ public class GenerateurQuad extends TinyLangBaseListener{
     private LinkedList<String> stack = new LinkedList<>();
     private ListQuad quads = new ListQuad();
     private int cptTemps = 0;
-    Listener listener;
+    SemanticErrorCheck semanticErrorCheck;
 
-    public GenerateurQuad(Listener listener) {
-        this.listener = listener;
+    public GenerateurQuad(SemanticErrorCheck semanticErrorCheck) {
+        this.semanticErrorCheck = semanticErrorCheck;
     }
 
 
-    @Override public void exitProgramme(TinyLangParser.ProgrammeContext ctx)
+    @Override public void exitProg(TinyLangParser.ProgContext ctx)
     {
-        if(listener.getErreurs().size()>0)
+        if(semanticErrorCheck.getErrors().size()>0)
             return;
         quads.addQuad("END","","","");
-    }
-
-    @Override public void exitAffectation(TinyLangParser.AffectationContext ctx)
-    {
-        quads.addQuad("=",ctx.getChild(2).getText(),"",ctx.getChild(0).getText());
-    }
-
-    int saveCondition;
-    @Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx)
-    {
-        String Opl="BE" ;
-        switch(ctx.getChild(2).getText()) {
-            case "<":
-                Opl = "BL";
-                break;
-            case ">":
-                Opl="BG";
-                break;
-            case "==":
-                Opl="BE";
-                break;
-            case "!=":
-                Opl="BNE";
-                break;
+        showText("generated quads: ",TextDisplayer.COMPILERTEXTS);
+        showText("******************************************************",TextDisplayer.COMPILERTEXTS);
+        for (int i = 0; i < quads.size(); i++) {
+            showText(i + ": " + quads.getQuad(i).toString(),TextDisplayer.COMPILERTEXTS);
         }
-        saveCondition = quads.addQuad(Opl,ctx.getChild(1).getText(),ctx.getChild(2).getText(),"");
+        showText("******************************************************",TextDisplayer.COMPILERTEXTS);
     }
-    //todo: trouver si ctx.parent() donne le non terminale à l'origine de l'instru
-    @Override public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx)
+
+    @Override public void exitAffect(TinyLangParser.AffectContext ctx)
     {
-        if(ctx.expressionArithmetique()!= null)//à revoire
+        showText("exitAffect start: " +" head of stack is " + stack.getLast(),TextDisplayer.RANDOMCOMMENTS);
+        String t1 = stack.removeLast();
+        quads.addQuad("=",t1,"",ctx.identifier().getText());
+        showText("exitAffect adding quad " + quads.getQuad(quads.size()-1),TextDisplayer.RANDOMCOMMENTS);
+    }
+
+    @Override public void exitExp(TinyLangParser.ExpContext ctx)
+    {
+        if(ctx.exp() != null)
         {
+            String t1 = stack.removeLast();
+            String t2 = stack.removeLast();
             String temp = "Temp"+(++cptTemps);
-            quads.addQuad(ctx.opt().getText(),ctx.getChild(1).getText(),ctx.getChild(2).getText(),temp);
+            quads.addQuad(ctx.opmi().getText(),t2,t1,temp);
+            stack.add(temp);
+            showText("exitExp adding quad " + quads.getQuad(quads.size()-1),TextDisplayer.RANDOMCOMMENTS);
         }
-
-    }
-    //Todo: Trouver où placer le branchement  >>sur le quad sur le quel faut se brancher à aprtir de enter ou exit ??
-    //Todo: saveCondfin à la fin d'une expression du If
-    int saveConditionEndif;
-    @Override public void enterOptelse(TinyLangParser.OptelseContext ctx){
-        saveConditionEndif = quads.addQuad("BR","","","");
-        quads.getQuad(saveCondition).set(1,""+quads.size());//sur le quad else
+        else
+        {
+            showText("exitExp head of stack is: " + stack.getLast()+ " stack size " + stack.size(),TextDisplayer.RANDOMCOMMENTS);
+        }
     }
 
-    @Override public void exitCondition(TinyLangParser.ConditionContext ctx)
-    {
-        quads.getQuad(saveConditionEndif).set(3,""+quads.size());//sur le quad suivant la fin du if
-    }
-
-/*
     @Override public void exitT(TinyLangParser.TContext ctx)
     {
         if(ctx.t() != null)
@@ -98,6 +80,16 @@ public class GenerateurQuad extends TinyLangBaseListener{
         }
     }
 
+    int saveCondition;
+    @Override public void exitComp(TinyLangParser.CompContext ctx)
+    {
+        showText("exitComp start: " +" head of stack is " + stack.getLast(),TextDisplayer.RANDOMCOMMENTS);
+        String t1 = stack.removeLast();
+        String t2 = stack.removeLast();
+        saveCondition = quads.addQuad((ctx.op().getText().compareTo(">") == 0)?"BLE":"BGE",t2,t1,"");
+        showText("exitComp adding quad " + quads.getQuad(quads.size()-1),TextDisplayer.RANDOMCOMMENTS);
+
+    }
 
     @Override public void exitEl(TinyLangParser.ElContext ctx)
     {
@@ -109,5 +101,10 @@ public class GenerateurQuad extends TinyLangBaseListener{
     {
         quads.getQuad(saveCondition).set(3,""+quads.size());
     }
-*/
+
+    private void showText(String text, int typeOfText)
+    {
+        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.QUADGEN);
+    }
+
 }

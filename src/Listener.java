@@ -136,8 +136,4 @@ public class Listener extends TinyLangBaseListener{
         }
     }
 
-    public LinkedList<String> getErreurs(){
-        return this.erreurs;
-    }
-
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Quad {
 //TODO: implementation du tableau de quad ainsi que de ces différentes fonction pour generer le code objet!!
 
-    ArrayList<String> q = new ArrayList<String>(4);
+    ArrayList<String> q = new ArrayList<String>();
 
     public Quad(String[] quadr){
         this.q.add(quadr[1]);

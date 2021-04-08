@@ -8,6 +8,7 @@ import java.io.InputStream;
 
 public class MainProg {
     public static void main(String[] args) throws Exception {
+
         String fileName = null;
         if(args.length>0){
             fileName = args[0];
@@ -26,6 +27,8 @@ public class MainProg {
 
         //instanciation de la classe parser avec les tokens reconnu
         TinyLangParser parser = new TinyLangParser(tokens);
+        parser.removeErrorListeners(); // remove ConsoleErrorListener
+        parser.addErrorListener(new LexicalErrorListener()); // add ours
 
         //realisation d'un arbre syntaxique avec les tokens
         //program represente la premiere regle de la grammaire

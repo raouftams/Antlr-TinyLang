@@ -57,11 +57,11 @@ public class Listener extends TinyLangBaseListener{
     @Override
     public void exitAffectation(TinyLangParser.AffectationContext ctx) {
         if (ctx.IDENTIFIANT() != null){
-            if (declared(ctx.IDENTIFIANT().getText())) {
+            if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
                 //dans le cas ou la variable et declarer on verifie le type de l'idf et la variable affecter
                 //on recuperer le type de la variable de la table de hachage Ruletype
                 if (!(table.getElement(ctx.IDENTIFIANT().getText()).type).equals(Ruletype.get(ctx.expressionArithmetique()))) {
-                    this.addError("Erreur: Incompatibilité des types de la variable ["+table.getElement(ctx.IDENTIFIANT().getText())+ "] et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
+                    this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité des types de la variable ["+table.getElement(ctx.IDENTIFIANT().getText())+ "] et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
                 }
             }
         }
@@ -71,7 +71,7 @@ public class Listener extends TinyLangBaseListener{
     @Override
     public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) {
         if(ctx.IDENTIFIANT() != null) {
-            if (declared(ctx.IDENTIFIANT().getText())) {
+            if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
         }
@@ -94,7 +94,7 @@ public class Listener extends TinyLangBaseListener{
     @Override
     public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) {
         if(ctx.IDENTIFIANT() != null) {
-            if (declared(ctx.IDENTIFIANT().getText())) {
+            if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
         }
@@ -115,6 +115,16 @@ public class Listener extends TinyLangBaseListener{
         }
     }
 
+    @Override
+    public void exitIdentifiants(TinyLangParser.IdentifiantsContext ctx) {
+        ParserRuleContext p = ctx.getParent();
+        if(p instanceof TinyLangParser.Print_valContext || p instanceof TinyLangParser.ScanContext){
+            if (ctx.IDENTIFIANT() != null)
+                declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine());
+        }
+    }
+
+
     private void checkExprType(ParserRuleContext ctx, String type){
         if (!this.pfExpression.empty()) {
             String registredType = this.pfExpression.pop();
@@ -122,7 +132,7 @@ public class Listener extends TinyLangBaseListener{
                 this.pfExpression.push(type);
                 this.Ruletype.put(ctx, type);
             } else {
-                this.addError("Erreur, ligne " + ctx.start.getLine() + ": Incompatibilité de type dans l'expression ( " + type + " et " + registredType + " )");
+                this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( " + type + " et " + registredType + " )");
             }
         } else {
             this.pfExpression.push(type);
@@ -141,9 +151,9 @@ public class Listener extends TinyLangBaseListener{
     }
 
 
-    private boolean declared(String v){
+    private boolean declared(String v, int line, int column){
         if(!this.table.containsElement(v)){
-            String error = "Erreur: Variable " + v + " non déclarée";
+            String error = "Erreur [ligne " + line + ", colonne " + column + "]: Variable " + v + " non déclarée";
             this.addError(error);
             return false;
         }

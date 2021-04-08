@@ -7,6 +7,8 @@ compil Algo(){
     start
     i = n + i *c -d /k;
     f = f + z + z;
+    f = n;
+    printCompil(m);
 
     if( n != i ) then {
             i = 0;
@@ -14,4 +16,5 @@ compil Algo(){
     do{
         i = n;
     }while( i == ch)
+
 }

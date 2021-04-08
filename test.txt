@@ -1,6 +1,6 @@
 compil Algo(){
     // Déclaration des variables
-    intCompil n, i, s, c, d, k;
+    intCompil n, i, s*, c, d-, k;
     floatCompil f, z;
     stringCompil ch;
 

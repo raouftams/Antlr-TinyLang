@@ -20,6 +20,8 @@ public class MainProg {
         }
         CharStream input = new UnbufferedCharStream(is);
         TinyLangLexer lex = new TinyLangLexer(input);
+        lex.removeErrorListeners();
+        lex.addErrorListener(new ErrorListener());
         lex.setTokenFactory(new CommonTokenFactory(true));
 
         //POUR RECUPERER les entitées lexicales

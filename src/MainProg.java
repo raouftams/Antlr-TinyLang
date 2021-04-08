@@ -28,7 +28,7 @@ public class MainProg {
         //instanciation de la classe parser avec les tokens reconnu
         TinyLangParser parser = new TinyLangParser(tokens);
         parser.removeErrorListeners(); // remove ConsoleErrorListener
-        parser.addErrorListener(new LexicalErrorListener()); // add ours
+        parser.addErrorListener(new ErrorListener()); // add ours
 
         //realisation d'un arbre syntaxique avec les tokens
         //program represente la premiere regle de la grammaire

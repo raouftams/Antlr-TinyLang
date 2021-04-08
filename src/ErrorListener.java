@@ -3,7 +3,7 @@ import org.antlr.v4.runtime.*;
 import java.util.Collections;
 import java.util.List;
 
-public class LexicalErrorListener extends BaseErrorListener {
+public class ErrorListener extends BaseErrorListener {
 
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer,

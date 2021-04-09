@@ -6,7 +6,7 @@ compil Algo(){
 
     start
     i = n + i *c -d /k;
-    f = f + z + z;
+    f = (f + z) + z;
 
     if( n != i ) then {
             i = 0;

@@ -1,4 +1,4 @@
-import jdk.nashorn.internal.ir.WhileNode;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
@@ -12,6 +12,8 @@ public class GenerateurQuad extends TinyLangBaseListener{
     private Transform transform = new Transform();
     private int cptTemps = 0;
     private int i = 0;
+    private LinkedList<String> tStack = new LinkedList<String>();
+    private LinkedList<String> rStack = new LinkedList<String>();
     Listener listener;
 
     public GenerateurQuad(Listener listener) {
@@ -46,13 +48,16 @@ public class GenerateurQuad extends TinyLangBaseListener{
         saveCondition = quads.addQuad(opl,ctx.getChild(1).getText(),ctx.getChild(2).getText(),"");
     }
 
-    //todo: trouver si ctx.parent() donne le non terminale à l'origine de l'instru
     @Override public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx)
     {
+
+        if(ctx.child(1) != null & ctx.child(1).getText() == "(")
+            this.postStack.push(ctx.child(1).getText());
         if(ctx.IDENTIFIANT() != null)
             this.postStack.push(ctx.IDENTIFIANT().getText());
 
         if(ctx.opt() != null)
+
             this.postStack.push(ctx.opt().getText());
 
         if (ctx.INT() != null)
@@ -60,9 +65,46 @@ public class GenerateurQuad extends TinyLangBaseListener{
 
         if (ctx.FLOAT() != null)
             this.postStack.push(ctx.FLOAT().getText());
+        if(ctx.child(2) != null & ctx.child(2).getText() == ")")
+            this.postStack.push(ctx.child(2).getText());
 
         if (!(ctx.getParent() instanceof TinyLangParser.ExpressionArithmetiqueContext)){
-            
+            boolean b;
+            while(this.postStack.size()>0){
+                b = true;
+                if(this.postStack.get(0).equals("(")){
+                    this.tStack.push(this.postStack.get(0));
+                    this.postStack.removeFirst();
+                    b = false;
+                }
+                if("+-*/".contains(this.tStack.getFirst())){
+
+                    while (!this.tStack.isEmpty() && "+-*/".contains(this.tStack.peek())  && (priority(this.postStack.get(1))<=priority(this.tStack.peek()))) {
+                        this.rStack.push(this.tStack.pop());
+                    }
+                    this.tStack.push(this.postStack.get(0));
+                    this.postStack.removeFirst();
+                    b = false;
+                }
+
+                if(this.postStack.get(0).equals(")")){
+                    while(!this.tStack.isEmpty() && (!this.tStack.peek().equals("("))){
+                        this.rStack.push(this.tStack.pop());
+
+                    }
+                    this.tStack.pop();
+                    this.postStack.remove(0);
+                    b = false;
+                }
+
+                if(b){
+                    this.rStack.push(this.postStack.get(0));
+                    this.postStack.removeFirst();
+                }
+            }
+            while(!this.rStack.isEmpty()){
+                this.tStack.push(this.rStack.pop());
+            }
         }
         /*
 
@@ -118,6 +160,22 @@ public class GenerateurQuad extends TinyLangBaseListener{
 
     @Override public void exitBoucle(TinyLangParser.BoucleContext ctx){
         quads.getQuad(quads.size() - 1).set(1,""+loop);
+    }
+
+    /*-----------------------------------------------------------------------------------------*/
+    //retourne la priorité de l'opérateur
+    //par defaut retourne 0
+    public int priority(String a){
+        switch (a) {
+            case "-":
+            case "+":
+                return 1;
+            case "*":
+            case "/":
+                return 2;
+            default:
+                return 0 ;
+        }
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class GenerateurQuad extends TinyLangBaseListener{
 
     private LinkedList<String> postStack = new LinkedList<>();
-    private ListQuad quads = new ListQuad();
+    public ListQuad quads = new ListQuad();
     private Transform transform = new Transform();
     private int cptTemps = 0;
     private int i = 0;
@@ -62,7 +62,7 @@ public class GenerateurQuad extends TinyLangBaseListener{
             this.postStack.push(ctx.FLOAT().getText());
 
         if (!(ctx.getParent() instanceof TinyLangParser.ExpressionArithmetiqueContext)){
-            
+
         }
         /*
 

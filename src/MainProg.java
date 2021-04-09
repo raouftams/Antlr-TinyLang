@@ -46,15 +46,10 @@ public class MainProg {
         if(list.nbErreurs == 0) {
             //nberreur si pas d'erreurs semantiques, on affiche les quadruplets sinon on les affiche pas
             //instanciation de la classe quadruplets
-            GenerateurQuad quadGen = new GenerateurQuad(list);
-            parser.addParseListener(quadGen);
+            GenerateurQuad p = new GenerateurQuad(list);
+            parser.addParseListener(p);
             ParseTreeWalker walker2 = new ParseTreeWalker();
-            walker2.walk(quadGen, tree);
-
-            //Instanciation de la classe CodeObjet
-            CodeObjet codObj = new CodeObjet(quadGen.quads);
-            codObj.transform();
-            codObj.afficherCodeObjet();
+            walker2.walk(p, tree);
         }
     }
 }

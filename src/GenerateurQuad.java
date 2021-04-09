@@ -68,32 +68,38 @@ public class GenerateurQuad extends TinyLangBaseListener{
             this.postStack.push(ctx.child(2).getText());
 
         if (!(ctx.getParent() instanceof TinyLangParser.ExpressionArithmetiqueContext)){
-
+            boolean b;
             while(this.postStack.size()>0){
-
-                if(this.postStack.get(1) =="("){
-                    this.tStack.push(this.postStack.get(1));
+                b = true;
+                if(this.postStack.get(0).equals("(")){
+                    this.tStack.push(this.postStack.get(0));
                     this.postStack.removeFirst();
+                    b = false;
                 }
                 if("+-*/".contains(this.tStack.getFirst())){
 
-                    while (!this.tStack.isEmpty() & "+-*/".contains(this.tStack.peek())  & (priority(this.postStack.get(1))<=priority(this.tStack.peek()))) {
+                    while (!this.tStack.isEmpty() && "+-*/".contains(this.tStack.peek())  && (priority(this.postStack.get(1))<=priority(this.tStack.peek()))) {
                         this.rStack.push(this.tStack.pop());
                     }
-                    this.tStack.push(this.postStack.get(1));
+                    this.tStack.push(this.postStack.get(0));
                     this.postStack.removeFirst();
+                    b = false;
                 }
 
-                if(this.postStack.get(i) == ")"){
-                    while(!this.tStack.isEmpty() & (!this.tStack.peek().equals("("))){
+                if(this.postStack.get(0).equals(")")){
+                    while(!this.tStack.isEmpty() && (!this.tStack.peek().equals("("))){
                         this.rStack.push(this.tStack.pop());
 
                     }
                     this.tStack.pop();
+                    this.postStack.remove(0);
+                    b = false;
                 }
-                //c'est un identifiant | number
-                this.rStack.push(this.postStack.get(1));
-                this.postStack.removeFirst();
+
+                if(b){
+                    this.rStack.push(this.postStack.get(0));
+                    this.postStack.removeFirst();
+                }
             }
             while(!this.rStack.isEmpty()){
                 this.tStack.push(this.rStack.pop());

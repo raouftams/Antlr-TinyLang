@@ -39,6 +39,21 @@ public class Quad {
         this.q.set(index,s);
     }
 
+    public String getOpt(){
+        return this.q.get(0);
+    }
+
+    public String getOp1(){
+        return this.q.get(1);
+    }
+
+    public String getOp2(){
+        return this.q.get(2);
+    }
+
+    public String getResult(){
+        return this.q.get(3);
+    }
     @Override
     public String toString()
     {

@@ -1,12 +1,17 @@
+import jdk.nashorn.internal.ir.WhileNode;
 import org.antlr.v4.runtime.ParserRuleContext;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class GenerateurQuad extends TinyLangBaseListener{
 
-    private LinkedList<String> stack = new LinkedList<>();
+    private LinkedList<String> postStack = new LinkedList<>();
     private ListQuad quads = new ListQuad();
+    private Transform transform = new Transform();
     private int cptTemps = 0;
+    private int i = 0;
     Listener listener;
 
     public GenerateurQuad(Listener listener) {
@@ -19,6 +24,7 @@ public class GenerateurQuad extends TinyLangBaseListener{
         if(listener.getErreurs().size()>0)
             return;
         quads.addQuad("END","","","");
+        this.quads.afficherQuad();
     }
 
     @Override public void exitAffectation(TinyLangParser.AffectationContext ctx)
@@ -29,23 +35,61 @@ public class GenerateurQuad extends TinyLangBaseListener{
     int saveCondition;
     @Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx)
     {
-        String Opl = switch (ctx.getChild(2).getText()) {
-            case "<" -> "BL";
-            case ">" -> "BG";
-            case "==" -> "BE";
-            case "!=" -> "BNE";
-            default -> "BE";
+        String opl;
+        switch (ctx.getChild(2).getText()) {
+            case "<": opl = "BL";
+            case ">": opl = "BG";
+            case "==": opl = "BE";
+            case "!=": opl = "BNE";
+            default: opl = "BE";
         };
-        saveCondition = quads.addQuad(Opl,ctx.getChild(1).getText(),ctx.getChild(2).getText(),"");
+        saveCondition = quads.addQuad(opl,ctx.getChild(1).getText(),ctx.getChild(2).getText(),"");
     }
+
     //todo: trouver si ctx.parent() donne le non terminale à l'origine de l'instru
     @Override public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx)
     {
+        if(ctx.IDENTIFIANT() != null)
+            this.postStack.push(ctx.IDENTIFIANT().getText());
+
+        if(ctx.opt() != null)
+            this.postStack.push(ctx.opt().getText());
+
+        if (ctx.INT() != null)
+            this.postStack.push(ctx.INT().getText());
+
+        if (ctx.FLOAT() != null)
+            this.postStack.push(ctx.FLOAT().getText());
+
+        if (!(ctx.getParent() instanceof TinyLangParser.ExpressionArithmetiqueContext)){
+            
+        }
+        /*
+
+        if (!this.postStack.isEmpty()){
+            String peek = this.postStack.peek();
+            //Vérifier si tête de pile est un opérateur
+            if(peek.equals("+") || peek.equals("-") || peek.equals("/") || peek.equals("*")){
+                String opt = this.postStack.pop();
+                String op1 = this.postStack.pop();
+                String op2 = this.postStack.pop();
+                String temp = "Temp"+(this.cptTemps++);
+                this.quads.addQuad(opt, op2, op1, temp);
+                this.postStack.push();
+            }
+        }
+        if(ctx.IDENTIFIANT() != null){
+            this.postStack.push(ctx.IDENTIFIANT().getText()));
+        }
+
         if(ctx.expressionArithmetique()!= null)//à revoire
         {
             String temp = "Temp"+(++cptTemps);
+            System.out.println("dagi");
             quads.addQuad(ctx.opt().getText(),ctx.getChild(1).getText(),ctx.getChild(2).getText(),temp);
         }
+
+         */
     }
 
     //Todo: Trouver où placer le branchement  >>sur le quad sur le quel faut se brancher à aprtir de enter ou exit ??
@@ -75,4 +119,5 @@ public class GenerateurQuad extends TinyLangBaseListener{
     @Override public void exitBoucle(TinyLangParser.BoucleContext ctx){
         quads.getQuad(quads.size() - 1).set(1,""+loop);
     }
+
 }

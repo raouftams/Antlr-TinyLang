@@ -43,5 +43,13 @@ public class MainProg {
         //instanciation de la classe listener la classe des routines semantiques
         Listener list = new Listener();
         walker.walk(list,tree);
+        if(list.nbErreurs == 0) {
+            //nberreur si pas d'erreurs semantiques, on affiche les quadruplets sinon on les affiche pas
+            //instanciation de la classe quadruplets
+            GenerateurQuad p = new GenerateurQuad(list);
+            parser.addParseListener(p);
+            ParseTreeWalker walker2 = new ParseTreeWalker();
+            walker2.walk(p, tree);
+        }
     }
 }

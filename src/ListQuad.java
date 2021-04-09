@@ -24,4 +24,11 @@ public class ListQuad {
     {
         return quads.size();
     }
+
+    public void afficherQuad(){
+        System.out.println("  Liste de quadruplés  ");
+        System.out.println("-----------------------");
+        this.quads.toString();
+
+    }
 }

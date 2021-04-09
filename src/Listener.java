@@ -21,9 +21,9 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitProgramme(TinyLangParser.ProgrammeContext ctx) {
-        if (this.erreurs.size() == 0){
+        this.nbErreurs = this.erreurs.size();
+        if (this.nbErreurs == 0){
             //Aucune erreur dans le programme
-            this.nbErreurs = 0;
             System.out.println("\nLa table des symboles");
             this.table.afficheTS();
 

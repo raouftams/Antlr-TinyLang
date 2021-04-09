@@ -29,21 +29,13 @@ public class GenerateurQuad extends TinyLangBaseListener{
     int saveCondition;
     @Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx)
     {
-        String Opl="BE" ;
-        switch(ctx.getChild(2).getText()) {
-            case "<":
-                Opl = "BL";
-                break;
-            case ">":
-                Opl="BG";
-                break;
-            case "==":
-                Opl="BE";
-                break;
-            case "!=":
-                Opl="BNE";
-                break;
-        }
+        String Opl = switch (ctx.getChild(2).getText()) {
+            case "<" -> "BL";
+            case ">" -> "BG";
+            case "==" -> "BE";
+            case "!=" -> "BNE";
+            default -> "BE";
+        };
         saveCondition = quads.addQuad(Opl,ctx.getChild(1).getText(),ctx.getChild(2).getText(),"");
     }
     //todo: trouver si ctx.parent() donne le non terminale à l'origine de l'instru
@@ -54,60 +46,33 @@ public class GenerateurQuad extends TinyLangBaseListener{
             String temp = "Temp"+(++cptTemps);
             quads.addQuad(ctx.opt().getText(),ctx.getChild(1).getText(),ctx.getChild(2).getText(),temp);
         }
-
     }
+
     //Todo: Trouver où placer le branchement  >>sur le quad sur le quel faut se brancher à aprtir de enter ou exit ??
     //Todo: saveCondfin à la fin d'une expression du If
+
     int saveConditionEndif;
     @Override public void enterOptelse(TinyLangParser.OptelseContext ctx){
-        saveConditionEndif = quads.addQuad("BR","","","");
-        quads.getQuad(saveCondition).set(1,""+quads.size());//sur le quad else
+        saveConditionEndif = quads.addQuad("BR","","","");//saut vers la fin du if si la condition retourne true
+        quads.getQuad(saveCondition).set(1,""+quads.size());//sur le quad instruction de else dans le cas ou elles existent
     }
 
     @Override public void exitCondition(TinyLangParser.ConditionContext ctx)
     {
-        quads.getQuad(saveConditionEndif).set(3,""+quads.size());//sur le quad suivant la fin du if
-    }
-
-/*
-    @Override public void exitT(TinyLangParser.TContext ctx)
-    {
-        if(ctx.t() != null)
-        {
-            String t1 = stack.removeLast(),t2 = stack.removeLast();
-            String temp = "Temp"+(++cptTemps);
-            quads.addQuad(ctx.opma().getText(),t2,t1,temp);
-            stack.add(temp);
-            showText("exitT adding quad " + quads.getQuad(quads.size()-1),TextDisplayer.RANDOMCOMMENTS);
+        if(ctx.optelse() == null) {
+            quads.getQuad(saveCondition).set(1,""+quads.size()); //dans le cas ou il n'y a pas de Else
         }
-        else
-        {
-            showText("exitT head of stack is: " + stack.getLast() + " stack size " + stack.size(),TextDisplayer.RANDOMCOMMENTS);
+        else {
+            quads.getQuad(saveConditionEndif).set(3,""+quads.size());  //sur le quad suivant la fin du if si le else existe
         }
     }
 
-    @Override public void exitEndEx(TinyLangParser.EndExContext ctx)
-    {
-        if(ctx.exp() == null) {
-            stack.add(ctx.getText());
-            showText("exitEndEx: case exp == null adding "+ ctx.getText(),TextDisplayer.RANDOMCOMMENTS);
-        }
-        else
-        {
-            showText("exitEndEx: case exp = null adding nothing "+ stack.getLast(),TextDisplayer.RANDOMCOMMENTS);
-        }
+    int loop;
+    @Override public void enterBoucle(TinyLangParser.BoucleContext ctx){
+        loop = quads.size();
     }
 
-
-    @Override public void exitEl(TinyLangParser.ElContext ctx)
-    {
-        quads.getQuad(saveCondition).set(3,""+(quads.size()+1));
-        saveCondition = quads.addQuad("BR","","","");
+    @Override public void exitBoucle(TinyLangParser.BoucleContext ctx){
+        quads.getQuad(quads.size() - 1).set(1,""+loop);
     }
-
-    @Override public void exitIfinst(TinyLangParser.IfinstContext ctx)
-    {
-        quads.getQuad(saveCondition).set(3,""+quads.size());
-    }
-*/
 }

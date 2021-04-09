@@ -54,6 +54,6 @@ IDENTIFIANT:[a-zA-Z][a-zA-Z0-9]*;
 AFFECTATION: '=';
 CNST: ([1-9][0-9]*|'0');
 INT: [+]?([1-9][0-9]*|'0');
-FLOAT: '0'|[+]?[1-9][0-9]*('.'[0-9]+) ;
+FLOAT: '0'|[+]?[1-9][0-9]*('.'[0-9]*) ;
 STRING: '"' .*? '"';
 WHITESPACE: [ \n\t\r] -> skip;

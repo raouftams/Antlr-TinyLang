@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 public class Quad {
-//TODO: implementation du tableau de quad ainsi que de ces différentes fonction pour generer le code objet!!
-
     ArrayList<String> q = new ArrayList<String>(4);
 
     public Quad(String[] quadr){
@@ -61,11 +59,3 @@ public class Quad {
     }
 
 }
-/*
-//class elemQuad{
-//TODO: creation de la ligne d'un quad
-
-//TODO: afficher quadruplets
-//}
-*/
-

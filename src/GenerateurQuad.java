@@ -14,7 +14,7 @@ public class GenerateurQuad extends TinyLangBaseListener{
     private int i = 0;
     private LinkedList<String> tStack = new LinkedList<String>();
     private LinkedList<String> rStack = new LinkedList<String>();
-    Listener listener;
+    private Listener listener;
 
     public GenerateurQuad(Listener listener) {
         this.listener = listener;
@@ -48,10 +48,11 @@ public class GenerateurQuad extends TinyLangBaseListener{
         saveCondition = quads.addQuad(opl,ctx.getChild(1).getText(),ctx.getChild(2).getText(),"");
     }
 
+
     @Override public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx)
     {
 
-        if(ctx.child(1) != null & ctx.child(1).getText() == "(")
+        if( ctx.lp() != null & ctx.child(1).getText() == "(")
             this.postStack.push(ctx.child(1).getText());
         if(ctx.IDENTIFIANT() != null)
             this.postStack.push(ctx.IDENTIFIANT().getText());

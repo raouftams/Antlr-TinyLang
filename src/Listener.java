@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Listener extends TinyLangBaseListener{
     //l objet table pour pouvoir ajouter dans la ts
-    private TS table = new TS();
+    private final TS table = new TS();
     public int nbErreurs;
 
     //table de hashage pour pouvoir range le type et la regle

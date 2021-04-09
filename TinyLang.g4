@@ -22,13 +22,15 @@ instruction: affectation| expressionArithmetique| condition| boucle| scan| print
 affectation: IDENTIFIANT AFFECTATION expressionArithmetique ';';
 // ANTLR résout les ambiguïtés et donne la priorité au premiéres alternatives utilisées
 // dans ce cas "!=" > "==" > "<" > ... > "/".
-expressionArithmetique:  '(' expressionArithmetique ')'
+expressionArithmetique:  lp expressionArithmetique rp
             | expressionArithmetique opt expressionArithmetique
             | IDENTIFIANT| CNST| INT| FLOAT;
 
 // Les opérateurs arithmétiques
 opt: '/' | '*' | '+' | '-';
-
+//les parenthéses
+lp: '(';
+rp: ')';
 expressionLogique: expressionLogique opl expressionLogique
                 | STRING | IDENTIFIANT | INT | FLOAT | CNST;
 

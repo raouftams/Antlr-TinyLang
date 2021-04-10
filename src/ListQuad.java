@@ -26,8 +26,8 @@ public class ListQuad {
 
     public void afficherQuad(){
         LinkedList<Integer> nEtiq = new LinkedList<>();
-        System.out.println("\n  Liste de quadruplés  ");
-        System.out.println("-----------------------");
+        System.out.println("\n \033[0;97m \t  Liste de quadruplés  ");
+        System.out.println("----------------------------------------");
         int i = 1;
         for (Quad q: this.quads) {
             if (q.getOp1().contains("Etiq")){

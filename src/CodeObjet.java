@@ -86,10 +86,10 @@ public class CodeObjet {
     }
 
     public void afficherCodeObjet(){
-        System.out.println("\nCode Assembleur");
-        System.out.println("----------------");
+        System.out.println("\n \033[0;97m \t  Le code objet  ");
+        System.out.println("----------------------------------------");
         for (String s: this.objectCode) {
-            System.out.println(s);
+            System.out.println("\t  " + s);
         }
     }
 }

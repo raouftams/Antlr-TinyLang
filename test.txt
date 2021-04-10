@@ -9,8 +9,10 @@ compil Algo(){
     i = n + h * (c -d) /k;
     f = f + z + z;
     n = i;
-    if( (n+i) != f ) then {
+    if( (n+i) != k ) then {
             i = 0;
+    } else {
+        i = 2;
     }
     do{
         i = n;

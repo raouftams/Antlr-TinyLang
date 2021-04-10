@@ -29,7 +29,7 @@ public class ListQuad {
         System.out.println("-----------------------");
         int i = 0;
         for (Quad q: this.quads) {
-            System.out.println((i+1) + "- " + q.toString());
+            System.out.println("\033[0;94m"+(i+1) + "\033[0;97m - " + q.toString());
             i++;
         }
 

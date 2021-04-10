@@ -27,7 +27,9 @@ public class ListQuad {
     public void afficherQuad(){
         System.out.println("  Liste de quadruplés  ");
         System.out.println("-----------------------");
-        this.quads.toString();
+        for (Quad q: this.quads) {
+            System.out.println(q.toString());
+        }
 
     }
 }

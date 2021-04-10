@@ -51,11 +51,12 @@ public class TS {
     // afficherTS elle affiche toute la table des Symbole
     public void afficheTS()
     {
-        System.out.println("\n Nom \t Type \t Valeur \t declaree");
-        System.out.println("--------------------------------------");
+        System.out.println("\n--------------------------------------------------");
+        System.out.format("%1s%15s%15s%12s", "Nom", "Type", "Valeur", "Declareé");
+        System.out.println("\n--------------------------------------------------");
         for (Map.Entry<String, Element> entry: this.L.entrySet()) {
-            System.out.println(entry.getValue().name + "\t" + entry.getValue().type + "\t" + entry.getValue().value + "\t" + entry.getValue().declared);
-            System.out.println("--------------------------------------");
+            System.out.format("%1s%20s%10s%10s",entry.getValue().name, entry.getValue().type, entry.getValue().value,entry.getValue().declared);
+            System.out.println("\n--------------------------------------------------");
         }
     }
 }

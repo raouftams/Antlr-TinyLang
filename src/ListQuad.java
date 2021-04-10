@@ -25,10 +25,12 @@ public class ListQuad {
     }
 
     public void afficherQuad(){
-        System.out.println("  Liste de quadruplés  ");
+        System.out.println("\n  Liste de quadruplés  ");
         System.out.println("-----------------------");
+        int i = 0;
         for (Quad q: this.quads) {
-            System.out.println(q.toString());
+            System.out.println((i+1) + "- " + q.toString());
+            i++;
         }
 
     }

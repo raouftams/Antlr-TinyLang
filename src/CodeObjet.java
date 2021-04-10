@@ -16,12 +16,8 @@ public class CodeObjet {
                 return "JNE";
             case "BL":
                 return "JL";
-            case "BLE":
-                return "JLE";
             case "BG":
                 return "JG";
-            case "BGE":
-                return "JGE";
             case "BZ":
                 return "JZ";
             case "BNZ":
@@ -64,14 +60,14 @@ public class CodeObjet {
                     if (opt.equals("JZ") || opt.equals("JNZ")) {
                         this.objectCode.add("MOV AX, " + quad.getOp2());
                         this.objectCode.add("CMP AX, 0");
-                        //this.objectCode.add(opt + " etiqAdr");
+                        this.objectCode.add(opt + " " + quad.getOp1());
                     } else {
                         if (opt.equals("JMP")) {
-                            //this.objectCode.add(opt + " EtiqAdr");
+                            this.objectCode.add(opt + " " + quad.getOp1());
                         } else {
                             this.objectCode.add("MOV AX, " + quad.getOp2());
                             this.objectCode.add("CMP AX, " + quad.getResult());
-                            this.objectCode.add(opt + " EtiqeAdr");
+                            this.objectCode.add(opt + " " + quad.getOp1());
                         }
                     }
                 } else {

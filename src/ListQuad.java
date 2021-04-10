@@ -25,11 +25,19 @@ public class ListQuad {
     }
 
     public void afficherQuad(){
+        LinkedList<Integer> nEtiq = new LinkedList<>();
         System.out.println("\n  Liste de quadruplés  ");
         System.out.println("-----------------------");
-        int i = 0;
+        int i = 1;
         for (Quad q: this.quads) {
-            System.out.println("\033[0;94m"+(i+1) + "\033[0;97m - " + q.toString());
+            if (q.getOp1().contains("Etiq")){
+                nEtiq.add(Integer.parseInt(q.getOp1().substring(4)));
+            }
+            if (!nEtiq.isEmpty() && nEtiq.getFirst() == i){
+                nEtiq.removeFirst();
+                System.out.println("\033[0;94m Etiq"+(i) + "->\033[0;97m " + q.toString());
+            }
+            else System.out.println("\033[0;97m \t\t" + q.toString());
             i++;
         }
 

@@ -55,6 +55,8 @@ public class Quad {
     @Override
     public String toString()
     {
+        if (this.q.get(1).contains("Etiq"))
+            return "("+this.q.get(0)+",\033[0;94m"+this.q.get(1)+"\033[0;97m,"+this.q.get(2)+","+this.q.get(3)+")";
         return "("+this.q.get(0)+","+this.q.get(1)+","+this.q.get(2)+","+this.q.get(3)+")";
     }
 

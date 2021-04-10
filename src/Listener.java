@@ -27,12 +27,14 @@ public class Listener extends TinyLangBaseListener{
         this.nbErreurs = this.erreurs.size();
         if (this.nbErreurs == 0){
             //Aucune erreur dans le programme
-            System.out.println("\nLa table des symboles");
+            System.out.println("\n\033[0;97mLa table des symboles");
             this.table.afficheTS();
 
         } else {
             // Dans le cas où il y a des erreurs
             System.out.print("\n");
+            System.out.println("\t\033[0;97mListe des erreurs ");
+            System.out.println("-------------------------\n");
             for ( String error: this.erreurs ) {
                 System.out.println(error);
             }
@@ -52,7 +54,7 @@ public class Listener extends TinyLangBaseListener{
             if (!table.containsElement(v)){
                 table.addElement(element);
             }else{
-                this.addError("Erreur: double déclaration de la variable " + v);
+                this.addError("Erreur: double déclaration de la variable \033[0;94m" + v +"\t\033[0;97m");
             }
         }
     }
@@ -64,7 +66,7 @@ public class Listener extends TinyLangBaseListener{
                 //dans le cas ou la variable et declarer on verifie le type de l'idf et la variable affecter
                 //on recuperer le type de la variable de la table de hachage Ruletype
                 if (!(table.getElement(ctx.IDENTIFIANT().getText()).type).equals(Ruletype.get(ctx.expressionArithmetique()))) {
-                    this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité des types de la variable ["+table.getElement(ctx.IDENTIFIANT().getText())+ "] et la variable "+ctx.expressionArithmetique().getText()+" type :"+Ruletype.get(ctx.expressionArithmetique()));
+                    this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité des types de la variable [\033[0;94m "+table.getElement(ctx.IDENTIFIANT().getText())+ "\033[0;97m] et la variable \033[0;94m "+ctx.expressionArithmetique().getText()+"\033[0;97m type : \033[0;94m"+Ruletype.get(ctx.expressionArithmetique()) + "\033[0;97m");
                 }
             }
         }
@@ -93,7 +95,7 @@ public class Listener extends TinyLangBaseListener{
         if (ctx.opt() != null){
             if (!this.optStack.empty())
                 if(ctx.opt().getText().equals("/") && this.optStack.peek().equals("0")){
-                    this.addError("Erreur [ligne " + ctx.start.getLine() + " , colonne " + ctx.start.getCharPositionInLine() + "]: Division par 0.");
+                    this.addError("Erreur [ligne " + ctx.start.getLine() + " , colonne " + ctx.start.getCharPositionInLine() + "]: Division par \t\033[0;94m 0. \033[0;97m");
                     this.optStack.clear();
                 }
 
@@ -114,7 +116,7 @@ public class Listener extends TinyLangBaseListener{
             String type1 = this.Ruletype.get(ctx.getChild(0));
             String type2 = this.Ruletype.get(ctx.getChild(2));
             if (!(type1.equals(type2))){
-                this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( " + type1 + " et " + type2 + " )");
+                this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( \033[0;94m" + type1 + " \033[0;97m et \033[0;94m" + type2 + "\033[0;97m )");
             }
         }
     }
@@ -136,7 +138,7 @@ public class Listener extends TinyLangBaseListener{
                 this.pfExpression.push(type);
                 this.Ruletype.put(ctx, type);
             } else {
-                this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( " + type + " et " + registredType + " )");
+                this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( \033[0;94m" + type + " \033[0;97m et \033[0;94m" + registredType + "\033[0;97m)");
             }
         } else {
             this.pfExpression.push(type);
@@ -157,7 +159,7 @@ public class Listener extends TinyLangBaseListener{
 
     private boolean declared(String v, int line, int column){
         if(!this.table.containsElement(v)){
-            String error = "Erreur [ligne " + line + ", colonne " + column + "]: Variable " + v + " non déclarée";
+            String error = "Erreur [ligne " + line + ", colonne " + column + "]: Variable \033[0;94m" + v + "\033[0;97m non déclarée";
             this.addError(error);
             return false;
         }

@@ -10,30 +10,12 @@ import java.util.*;
 
 public class Listener extends TinyLangBaseListener{
 
-    public class Rule{
-        private final String type;
-        private final String value;
-
-        public String getValue() {
-            return value;
-        }
-
-        public Rule(String type, String val){
-            this.type = type;
-            this.value = val;
-        }
-
-        public String getType() {
-            return type;
-        }
-    }
-
     //l objet table pour pouvoir ajouter dans la ts
-    private final TS table = new TS();
+    private TS table = new TS();
     public int nbErreurs;
 
     //table de hashage pour pouvoir range le type et la regle
-    private HashMap<ParserRuleContext,Rule> Ruletype = new HashMap<>();
+    private HashMap<ParserRuleContext,String> Ruletype = new HashMap<>();
     private Stack<String> pfExpression = new Stack<>();
 
     LinkedList<String> erreurs = new LinkedList<>();
@@ -155,12 +137,6 @@ public class Listener extends TinyLangBaseListener{
             }
         } else {
             this.pfExpression.push(type);
-        }
-    }
-
-    private void checkInit(ParserRuleContext ctx, String id){
-        if (this.table.getElement(id).value == null){
-            this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Variable " + id + " non initialisée.");
         }
     }
 

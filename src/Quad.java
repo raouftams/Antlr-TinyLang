@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Quad {
     ArrayList<String> q = new ArrayList<String>(4);
 
+
     public Quad(String[] quadr){
         this.q.add(quadr[1]);
         this.q.add(quadr[2]);

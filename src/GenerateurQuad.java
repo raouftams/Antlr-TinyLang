@@ -7,15 +7,13 @@ import java.util.Stack;
 
 public class GenerateurQuad extends TinyLangBaseListener{
 
-    private LinkedList<String> postStack = new LinkedList<>();
     private HashMap<ParserRuleContext, String> ruleTemp = new HashMap<>();
+    private Stack<Integer> conditionsQuads = new Stack<Integer>();
+    private LinkedList<String> identifiants = new LinkedList<>();
+    private Listener listener;
     public ListQuad quads = new ListQuad();
     private int cptTemps = 0;
     private int i = 0;
-    private LinkedList<String> tStack = new LinkedList<String>();
-    private LinkedList<String> rStack = new LinkedList<String>();
-    private Stack<Integer> conditionsQuads = new Stack<Integer>();
-    private Listener listener;
 
     public GenerateurQuad(Listener listener) {
         this.listener = listener;
@@ -70,7 +68,7 @@ public class GenerateurQuad extends TinyLangBaseListener{
     @Override public void enterOptelse(TinyLangParser.OptelseContext ctx){
 
         if (!conditionsQuads.empty()){
-            this.quads.getQuad(this.conditionsQuads.pop()).set(1, "AdrElse"+(this.quads.size()+2));
+            this.quads.getQuad(this.conditionsQuads.pop()).set(1, "Etiq"+(this.quads.size()+2));
         }
         this.conditionsQuads.push(this.quads.addQuad("BR", "", "", ""));
     }
@@ -78,7 +76,7 @@ public class GenerateurQuad extends TinyLangBaseListener{
     @Override public void exitCondition(TinyLangParser.ConditionContext ctx)
     {
         if (!conditionsQuads.empty()) {
-            this.quads.getQuad(this.conditionsQuads.pop()).set(1, "AdrEndIf" + (this.quads.size() + 1));
+            this.quads.getQuad(this.conditionsQuads.pop()).set(1, "Etiq" + (this.quads.size() + 1));
         }
     }
 
@@ -88,8 +86,38 @@ public class GenerateurQuad extends TinyLangBaseListener{
     }
 
     @Override public void exitBoucle(TinyLangParser.BoucleContext ctx){
-        quads.getQuad(this.quads.size()-1).set(1,"AdrLoop"+(loop+1));
+        quads.getQuad(this.quads.size()-1).set(1,"Etiq"+(loop+1));
     }
+
+    @Override
+    public void enterIdentifiants(TinyLangParser.IdentifiantsContext ctx) {
+        this.identifiants.clear();
+    }
+
+    @Override
+    public void exitIdentifiants(TinyLangParser.IdentifiantsContext ctx) {
+        if (ctx.IDENTIFIANT() != null){
+            this.identifiants.push(ctx.IDENTIFIANT().getText());
+        }
+    }
+
+
+    @Override
+    public void exitPrint(TinyLangParser.PrintContext ctx) {
+        for (String s: this.identifiants) {
+            this.quads.addQuad("WRITE", s, "", "");
+        }
+        this.identifiants.clear();
+    }
+
+    @Override
+    public void exitScan(TinyLangParser.ScanContext ctx) {
+        for (String s: this.identifiants) {
+            this.quads.addQuad("READ", s, "", "");
+        }
+        this.identifiants.clear();
+    }
+
 
     // priorité des opérateurs
     private int Prec(char ch) {
@@ -179,7 +207,7 @@ public class GenerateurQuad extends TinyLangBaseListener{
         }
     }
 
-    //retourne le branchement d'un opérateur donné
+    //retourne le branchement d'un opérateur donné dans le cas d'une condition IF
     //zero est un boolean vérifiant si on compare avec 0
     private String getEquivalentIf(String opt, boolean zero){
         if (zero) {
@@ -202,6 +230,8 @@ public class GenerateurQuad extends TinyLangBaseListener{
             }
     }
 
+    //retourne le branchement d'un opérateur donné dans le cas d'une boucle
+    //zero est un boolean vérifiant si on compare avec 0
     private String getEquivalentLoop(String opt, boolean zero){
         if (zero) {
             switch (opt) {

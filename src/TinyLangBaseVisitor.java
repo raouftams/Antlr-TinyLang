@@ -1,4 +1,4 @@
-// Generated from C:/Users/Raouftams/IdeaProjects/TinyLang\TinyLang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Raouftams/IdeaProjects/Antlr-TinyLang\TinyLang.g4 by ANTLR 4.9.1
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -81,6 +81,20 @@ public class TinyLangBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitOpt(TinyLangParser.OptContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLp(TinyLangParser.LpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitRp(TinyLangParser.RpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

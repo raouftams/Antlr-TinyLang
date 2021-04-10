@@ -1,4 +1,4 @@
-// Generated from C:/Users/Raouftams/IdeaProjects/TinyLang\TinyLang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Raouftams/IdeaProjects/Antlr-TinyLang\TinyLang.g4 by ANTLR 4.9.1
 
     package antlr;
     
@@ -109,6 +109,26 @@ public interface TinyLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOpt(TinyLangParser.OptContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyLangParser#lp}.
+	 * @param ctx the parse tree
+	 */
+	void enterLp(TinyLangParser.LpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangParser#lp}.
+	 * @param ctx the parse tree
+	 */
+	void exitLp(TinyLangParser.LpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyLangParser#rp}.
+	 * @param ctx the parse tree
+	 */
+	void enterRp(TinyLangParser.RpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangParser#rp}.
+	 * @param ctx the parse tree
+	 */
+	void exitRp(TinyLangParser.RpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TinyLangParser#expressionLogique}.
 	 * @param ctx the parse tree

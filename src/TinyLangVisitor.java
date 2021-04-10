@@ -1,4 +1,4 @@
-// Generated from C:/Users/Raouftams/IdeaProjects/TinyLang\TinyLang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Raouftams/IdeaProjects/Antlr-TinyLang\TinyLang.g4 by ANTLR 4.9.1
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -70,6 +70,18 @@ public interface TinyLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOpt(TinyLangParser.OptContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TinyLangParser#lp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLp(TinyLangParser.LpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TinyLangParser#rp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRp(TinyLangParser.RpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TinyLangParser#expressionLogique}.
 	 * @param ctx the parse tree

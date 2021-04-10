@@ -1,4 +1,4 @@
-// Generated from C:/Users/Raouftams/IdeaProjects/TinyLang\TinyLang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Raouftams/IdeaProjects/Antlr-TinyLang\TinyLang.g4 by ANTLR 4.9.1
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -131,6 +131,30 @@ public class TinyLangBaseListener implements TinyLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOpt(TinyLangParser.OptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLp(TinyLangParser.LpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLp(TinyLangParser.LpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRp(TinyLangParser.RpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRp(TinyLangParser.RpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

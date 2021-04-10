@@ -16,6 +16,6 @@ compil Algo(){
     }
     do{
         i = n;
-    }while( f == z)
+    }while( f > z)
 
 }

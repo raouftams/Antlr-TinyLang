@@ -12,7 +12,7 @@ public class ErrorListener extends BaseErrorListener {
                             String msg,
                             RecognitionException e)
     {
-        System.err.println("ligne "+line+": colonne "+charPositionInLine+" "+msg);
+        System.err.println("Erreur syntaxique/lexicale [ligne "+line+": colonne "+charPositionInLine+"]: "+msg);
         UnderLineError(recognizer, (Token)offendingSymbol, line, charPositionInLine);
 
     }

@@ -27,25 +27,24 @@ public class MainProg {
         //POUR RECUPERER les entitées lexicales
         TokenStream tokens = new UnbufferedTokenStream<CommonToken>(lex);
 
-        //instanciation de la classe parser avec les tokens reconnu
+        //instanciation de la classe TinyLangParser avec les tokens reconnu
         TinyLangParser parser = new TinyLangParser(tokens);
-        parser.removeErrorListeners(); // remove ConsoleErrorListener
-        parser.addErrorListener(new ErrorListener()); // add ours
+        parser.removeErrorListeners(); // retirer ConsoleErrorListener
+        parser.addErrorListener(new ErrorListener()); // ajout de notre propre ErrorListener
 
         //realisation d'un arbre syntaxique avec les tokens
-        //program represente la premiere regle de la grammaire
+        //programme() represente l'axiom de la grammaire
         ParseTree tree = parser.programme();
 
         //affichage de l'arbre a l'execution
         Trees.inspect(tree,parser);
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        //instanciation de la classe listener la classe des routines semantiques
+        //instanciation de la classe listener (classe des routines semantiques)
         Listener list = new Listener();
         walker.walk(list,tree);
         if(list.nbErreurs == 0) {
-            //nberreur si pas d'erreurs semantiques, on affiche les quadruplets sinon on les affiche pas
-            //instanciation de la classe quadruplets
+            //instanciation de la classe GenerateurQuad
             GenerateurQuad quadGen = new GenerateurQuad(list);
             parser.addParseListener(quadGen);
             ParseTreeWalker walker2 = new ParseTreeWalker();

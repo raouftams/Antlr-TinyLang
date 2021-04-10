@@ -17,6 +17,7 @@ public class Listener extends TinyLangBaseListener{
     //table de hashage pour pouvoir range le type et la regle
     private HashMap<ParserRuleContext,String> Ruletype = new HashMap<>();
     private Stack<String> pfExpression = new Stack<>();
+    private Stack<String> optStack = new Stack<>();
 
     LinkedList<String> erreurs = new LinkedList<>();
 
@@ -71,19 +72,32 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) {
+
+        System.out.println(optStack.toString());
         if(ctx.IDENTIFIANT() != null) {
             if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
         }
-        if (ctx.INT() != null || ctx.CNST() != null){
+        if (ctx.INT() != null){
             this.checkExprType(ctx, "intCompil");
         }
+        if (ctx.CNST() != null){
+            this.optStack.push(ctx.CNST().getText());
+            this.checkExprType(ctx, "intCompil");
+        }
+
         if(ctx.FLOAT() != null){
             this.checkExprType(ctx, "floatCompil");
         }
 
-        if (ctx.getParent().getChild(1).getText().equals("=")){
+        if (ctx.opt() != null){
+            if (!this.optStack.empty())
+                if(ctx.opt().getText().equals("/") && this.optStack.peek().equals("0"))
+                    this.addError("Erreur [ligne " + ctx.start.getLine() + " , colonne " + ctx.start.getCharPositionInLine() + "]: Division par 0.");
+        }
+
+        if (!(ctx.getParent() instanceof TinyLangParser.ExpressionArithmetiqueContext)){
             if(!this.pfExpression.empty()){
                 String exprType = this.pfExpression.pop();
                 this.Ruletype.put(ctx, exprType);

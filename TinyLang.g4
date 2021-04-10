@@ -31,8 +31,7 @@ opt: '/' | '*' | '+' | '-';
 //les parenthéses
 lp: '(';
 rp: ')';
-expressionLogique: expressionLogique opl expressionLogique
-                | STRING | IDENTIFIANT | INT | FLOAT | CNST;
+expressionLogique: expressionArithmetique opl expressionArithmetique;
 
 // Les opérateurs logiques
 opl: '!=' | '==' | '<' | '>';

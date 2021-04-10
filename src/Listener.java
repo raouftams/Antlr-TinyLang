@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.antlr.v4.tool.Rule;
 
 import javax.print.DocFlavor;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Listener extends TinyLangBaseListener{
@@ -109,7 +110,14 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) {
-        if(ctx.IDENTIFIANT() != null) {
+        if (ctx.getChild(0) != null && ctx.getChild(2) != null){
+            String type1 = this.Ruletype.get(ctx.getChild(0));
+            String type2 = this.Ruletype.get(ctx.getChild(2));
+            if (!(type1.equals(type2))){
+                this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( " + type1 + " et " + type2 + " )");
+            }
+        }
+        /*if(ctx.IDENTIFIANT() != null) {
             if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
             }
@@ -124,11 +132,11 @@ public class Listener extends TinyLangBaseListener{
                 this.checkExprType(ctx, "floatCompil");
             }
 
-        if (ctx.getParent().getChild(0).getText().equals("if") || ctx.getParent().getChild(0).getText().equals("do")){
+        if (!(ctx.getParent() instanceof TinyLangParser.ExpressionLogiqueContext)){
             if(!this.pfExpression.empty()){
                 this.pfExpression.clear();
             }
-        }
+        }*/
     }
 
     @Override

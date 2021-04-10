@@ -886,16 +886,11 @@ public class TinyLangParser extends Parser {
 	}
 
 	public static class ExpressionLogiqueContext extends ParserRuleContext {
-		public TerminalNode STRING() { return getToken(TinyLangParser.STRING, 0); }
-		public TerminalNode IDENTIFIANT() { return getToken(TinyLangParser.IDENTIFIANT, 0); }
-		public TerminalNode INT() { return getToken(TinyLangParser.INT, 0); }
-		public TerminalNode FLOAT() { return getToken(TinyLangParser.FLOAT, 0); }
-		public TerminalNode CNST() { return getToken(TinyLangParser.CNST, 0); }
-		public List<ExpressionLogiqueContext> expressionLogique() {
-			return getRuleContexts(ExpressionLogiqueContext.class);
+		public List<ExpressionArithmetiqueContext> expressionArithmetique() {
+			return getRuleContexts(ExpressionArithmetiqueContext.class);
 		}
-		public ExpressionLogiqueContext expressionLogique(int i) {
-			return getRuleContext(ExpressionLogiqueContext.class,i);
+		public ExpressionArithmetiqueContext expressionArithmetique(int i) {
+			return getRuleContext(ExpressionArithmetiqueContext.class,i);
 		}
 		public OplContext opl() {
 			return getRuleContext(OplContext.class,0);
@@ -920,81 +915,17 @@ public class TinyLangParser extends Parser {
 	}
 
 	public final ExpressionLogiqueContext expressionLogique() throws RecognitionException {
-		return expressionLogique(0);
-	}
-
-	private ExpressionLogiqueContext expressionLogique(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		ExpressionLogiqueContext _localctx = new ExpressionLogiqueContext(_ctx, _parentState);
-		ExpressionLogiqueContext _prevctx = _localctx;
-		int _startState = 24;
-		enterRecursionRule(_localctx, 24, RULE_expressionLogique, _p);
+		ExpressionLogiqueContext _localctx = new ExpressionLogiqueContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_expressionLogique);
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(121);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case STRING:
-				{
-				setState(116);
-				match(STRING);
-				}
-				break;
-			case IDENTIFIANT:
-				{
-				setState(117);
-				match(IDENTIFIANT);
-				}
-				break;
-			case INT:
-				{
-				setState(118);
-				match(INT);
-				}
-				break;
-			case FLOAT:
-				{
-				setState(119);
-				match(FLOAT);
-				}
-				break;
-			case CNST:
-				{
-				setState(120);
-				match(CNST);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(129);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					{
-					_localctx = new ExpressionLogiqueContext(_parentctx, _parentState);
-					pushNewRecursionContext(_localctx, _startState, RULE_expressionLogique);
-					setState(123);
-					if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-					setState(124);
-					opl();
-					setState(125);
-					expressionLogique(7);
-					}
-					} 
-				}
-				setState(131);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			}
+			setState(115);
+			expressionArithmetique(0);
+			setState(116);
+			opl();
+			setState(117);
+			expressionArithmetique(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1003,7 +934,7 @@ public class TinyLangParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-			unrollRecursionContexts(_parentctx);
+			exitRule();
 		}
 		return _localctx;
 	}
@@ -1035,7 +966,7 @@ public class TinyLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(132);
+			setState(119);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__18))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1093,23 +1024,23 @@ public class TinyLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(134);
+			setState(121);
 			match(T__19);
-			setState(135);
+			setState(122);
 			match(T__1);
-			setState(136);
-			expressionLogique(0);
-			setState(137);
+			setState(123);
+			expressionLogique();
+			setState(124);
 			match(T__2);
-			setState(138);
+			setState(125);
 			match(T__20);
-			setState(139);
+			setState(126);
 			match(T__3);
-			setState(140);
+			setState(127);
 			instructions();
-			setState(141);
+			setState(128);
 			match(T__5);
-			setState(142);
+			setState(129);
 			optelse();
 			}
 		}
@@ -1151,19 +1082,19 @@ public class TinyLangParser extends Parser {
 		OptelseContext _localctx = new OptelseContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_optelse);
 		try {
-			setState(150);
+			setState(137);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__21:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(144);
+				setState(131);
 				match(T__21);
-				setState(145);
+				setState(132);
 				match(T__3);
-				setState(146);
+				setState(133);
 				instructions();
-				setState(147);
+				setState(134);
 				match(T__5);
 				}
 				break;
@@ -1228,21 +1159,21 @@ public class TinyLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(152);
+			setState(139);
 			match(T__22);
-			setState(153);
+			setState(140);
 			match(T__3);
-			setState(154);
+			setState(141);
 			instructions();
-			setState(155);
+			setState(142);
 			match(T__5);
-			setState(156);
+			setState(143);
 			match(T__23);
-			setState(157);
+			setState(144);
 			match(T__1);
-			setState(158);
-			expressionLogique(0);
-			setState(159);
+			setState(145);
+			expressionLogique();
+			setState(146);
 			match(T__2);
 			}
 		}
@@ -1286,15 +1217,15 @@ public class TinyLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(161);
+			setState(148);
 			match(T__24);
-			setState(162);
+			setState(149);
 			match(T__1);
-			setState(163);
+			setState(150);
 			identifiants();
-			setState(164);
+			setState(151);
 			match(T__2);
-			setState(165);
+			setState(152);
 			match(T__6);
 			}
 		}
@@ -1338,15 +1269,15 @@ public class TinyLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(167);
+			setState(154);
 			match(T__25);
-			setState(168);
+			setState(155);
 			match(T__1);
-			setState(169);
+			setState(156);
 			print_val();
-			setState(170);
+			setState(157);
 			match(T__2);
-			setState(171);
+			setState(158);
 			match(T__6);
 			}
 		}
@@ -1389,20 +1320,20 @@ public class TinyLangParser extends Parser {
 		Print_valContext _localctx = new Print_valContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_print_val);
 		try {
-			setState(175);
+			setState(162);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case STRING:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(173);
+				setState(160);
 				match(STRING);
 				}
 				break;
 			case IDENTIFIANT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(174);
+				setState(161);
 				identifiants();
 				}
 				break;
@@ -1425,8 +1356,6 @@ public class TinyLangParser extends Parser {
 		switch (ruleIndex) {
 		case 8:
 			return expressionArithmetique_sempred((ExpressionArithmetiqueContext)_localctx, predIndex);
-		case 12:
-			return expressionLogique_sempred((ExpressionLogiqueContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -1437,16 +1366,9 @@ public class TinyLangParser extends Parser {
 		}
 		return true;
 	}
-	private boolean expressionLogique_sempred(ExpressionLogiqueContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 1:
-			return precpred(_ctx, 6);
-		}
-		return true;
-	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3&\u00b4\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3&\u00a7\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2"+
@@ -1454,48 +1376,42 @@ public class TinyLangParser extends Parser {
 		"\3\6\5\6G\n\6\3\7\3\7\3\7\3\7\5\7M\n\7\3\b\3\b\3\b\3\b\3\b\3\b\5\bU\n"+
 		"\b\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\ne\n\n\3"+
 		"\n\3\n\3\n\3\n\7\nk\n\n\f\n\16\nn\13\n\3\13\3\13\3\f\3\f\3\r\3\r\3\16"+
-		"\3\16\3\16\3\16\3\16\3\16\5\16|\n\16\3\16\3\16\3\16\3\16\7\16\u0082\n"+
-		"\16\f\16\16\16\u0085\13\16\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20"+
-		"\3\20\3\20\3\20\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u0099\n\21\3\22\3\22"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\23\3\24"+
-		"\3\24\3\24\3\24\3\24\3\24\3\25\3\25\5\25\u00b2\n\25\3\25\2\4\22\32\26"+
-		"\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(\2\5\3\2\n\f\3\2\16\21\3"+
-		"\2\22\25\2\u00b4\2*\3\2\2\2\4:\3\2\2\2\6<\3\2\2\2\b@\3\2\2\2\nF\3\2\2"+
-		"\2\fL\3\2\2\2\16T\3\2\2\2\20V\3\2\2\2\22d\3\2\2\2\24o\3\2\2\2\26q\3\2"+
-		"\2\2\30s\3\2\2\2\32{\3\2\2\2\34\u0086\3\2\2\2\36\u0088\3\2\2\2 \u0098"+
-		"\3\2\2\2\"\u009a\3\2\2\2$\u00a3\3\2\2\2&\u00a9\3\2\2\2(\u00b1\3\2\2\2"+
-		"*+\7\3\2\2+,\7\37\2\2,-\7\4\2\2-.\7\5\2\2./\7\6\2\2/\60\5\4\3\2\60\61"+
-		"\7\7\2\2\61\62\5\f\7\2\62\63\7\b\2\2\63\64\7\2\2\3\64\3\3\2\2\2\65\66"+
-		"\5\6\4\2\66\67\5\4\3\2\67;\3\2\2\28;\5\6\4\29;\3\2\2\2:\65\3\2\2\2:8\3"+
-		"\2\2\2:9\3\2\2\2;\5\3\2\2\2<=\5\b\5\2=>\5\n\6\2>?\7\t\2\2?\7\3\2\2\2@"+
-		"A\t\2\2\2A\t\3\2\2\2BC\7 \2\2CD\7\r\2\2DG\5\n\6\2EG\7 \2\2FB\3\2\2\2F"+
-		"E\3\2\2\2G\13\3\2\2\2HI\5\16\b\2IJ\5\f\7\2JM\3\2\2\2KM\5\16\b\2LH\3\2"+
-		"\2\2LK\3\2\2\2M\r\3\2\2\2NU\5\20\t\2OU\5\22\n\2PU\5\36\20\2QU\5\"\22\2"+
-		"RU\5$\23\2SU\5&\24\2TN\3\2\2\2TO\3\2\2\2TP\3\2\2\2TQ\3\2\2\2TR\3\2\2\2"+
-		"TS\3\2\2\2U\17\3\2\2\2VW\7 \2\2WX\7!\2\2XY\5\22\n\2YZ\7\t\2\2Z\21\3\2"+
-		"\2\2[\\\b\n\1\2\\]\5\26\f\2]^\5\22\n\2^_\5\30\r\2_e\3\2\2\2`e\7 \2\2a"+
-		"e\7\"\2\2be\7#\2\2ce\7$\2\2d[\3\2\2\2d`\3\2\2\2da\3\2\2\2db\3\2\2\2dc"+
-		"\3\2\2\2el\3\2\2\2fg\f\7\2\2gh\5\24\13\2hi\5\22\n\bik\3\2\2\2jf\3\2\2"+
-		"\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2m\23\3\2\2\2nl\3\2\2\2op\t\3\2\2p\25\3"+
-		"\2\2\2qr\7\4\2\2r\27\3\2\2\2st\7\5\2\2t\31\3\2\2\2uv\b\16\1\2v|\7%\2\2"+
-		"w|\7 \2\2x|\7#\2\2y|\7$\2\2z|\7\"\2\2{u\3\2\2\2{w\3\2\2\2{x\3\2\2\2{y"+
-		"\3\2\2\2{z\3\2\2\2|\u0083\3\2\2\2}~\f\b\2\2~\177\5\34\17\2\177\u0080\5"+
-		"\32\16\t\u0080\u0082\3\2\2\2\u0081}\3\2\2\2\u0082\u0085\3\2\2\2\u0083"+
-		"\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\33\3\2\2\2\u0085\u0083\3\2\2"+
-		"\2\u0086\u0087\t\4\2\2\u0087\35\3\2\2\2\u0088\u0089\7\26\2\2\u0089\u008a"+
-		"\7\4\2\2\u008a\u008b\5\32\16\2\u008b\u008c\7\5\2\2\u008c\u008d\7\27\2"+
-		"\2\u008d\u008e\7\6\2\2\u008e\u008f\5\f\7\2\u008f\u0090\7\b\2\2\u0090\u0091"+
-		"\5 \21\2\u0091\37\3\2\2\2\u0092\u0093\7\30\2\2\u0093\u0094\7\6\2\2\u0094"+
-		"\u0095\5\f\7\2\u0095\u0096\7\b\2\2\u0096\u0099\3\2\2\2\u0097\u0099\3\2"+
-		"\2\2\u0098\u0092\3\2\2\2\u0098\u0097\3\2\2\2\u0099!\3\2\2\2\u009a\u009b"+
-		"\7\31\2\2\u009b\u009c\7\6\2\2\u009c\u009d\5\f\7\2\u009d\u009e\7\b\2\2"+
-		"\u009e\u009f\7\32\2\2\u009f\u00a0\7\4\2\2\u00a0\u00a1\5\32\16\2\u00a1"+
-		"\u00a2\7\5\2\2\u00a2#\3\2\2\2\u00a3\u00a4\7\33\2\2\u00a4\u00a5\7\4\2\2"+
-		"\u00a5\u00a6\5\n\6\2\u00a6\u00a7\7\5\2\2\u00a7\u00a8\7\t\2\2\u00a8%\3"+
-		"\2\2\2\u00a9\u00aa\7\34\2\2\u00aa\u00ab\7\4\2\2\u00ab\u00ac\5(\25\2\u00ac"+
-		"\u00ad\7\5\2\2\u00ad\u00ae\7\t\2\2\u00ae\'\3\2\2\2\u00af\u00b2\7%\2\2"+
-		"\u00b0\u00b2\5\n\6\2\u00b1\u00af\3\2\2\2\u00b1\u00b0\3\2\2\2\u00b2)\3"+
-		"\2\2\2\f:FLTdl{\u0083\u0098\u00b1";
+		"\3\16\3\16\3\16\3\17\3\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20"+
+		"\3\20\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u008c\n\21\3\22\3\22\3\22\3\22"+
+		"\3\22\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\23\3\24\3\24\3\24"+
+		"\3\24\3\24\3\24\3\25\3\25\5\25\u00a5\n\25\3\25\2\3\22\26\2\4\6\b\n\f\16"+
+		"\20\22\24\26\30\32\34\36 \"$&(\2\5\3\2\n\f\3\2\16\21\3\2\22\25\2\u00a2"+
+		"\2*\3\2\2\2\4:\3\2\2\2\6<\3\2\2\2\b@\3\2\2\2\nF\3\2\2\2\fL\3\2\2\2\16"+
+		"T\3\2\2\2\20V\3\2\2\2\22d\3\2\2\2\24o\3\2\2\2\26q\3\2\2\2\30s\3\2\2\2"+
+		"\32u\3\2\2\2\34y\3\2\2\2\36{\3\2\2\2 \u008b\3\2\2\2\"\u008d\3\2\2\2$\u0096"+
+		"\3\2\2\2&\u009c\3\2\2\2(\u00a4\3\2\2\2*+\7\3\2\2+,\7\37\2\2,-\7\4\2\2"+
+		"-.\7\5\2\2./\7\6\2\2/\60\5\4\3\2\60\61\7\7\2\2\61\62\5\f\7\2\62\63\7\b"+
+		"\2\2\63\64\7\2\2\3\64\3\3\2\2\2\65\66\5\6\4\2\66\67\5\4\3\2\67;\3\2\2"+
+		"\28;\5\6\4\29;\3\2\2\2:\65\3\2\2\2:8\3\2\2\2:9\3\2\2\2;\5\3\2\2\2<=\5"+
+		"\b\5\2=>\5\n\6\2>?\7\t\2\2?\7\3\2\2\2@A\t\2\2\2A\t\3\2\2\2BC\7 \2\2CD"+
+		"\7\r\2\2DG\5\n\6\2EG\7 \2\2FB\3\2\2\2FE\3\2\2\2G\13\3\2\2\2HI\5\16\b\2"+
+		"IJ\5\f\7\2JM\3\2\2\2KM\5\16\b\2LH\3\2\2\2LK\3\2\2\2M\r\3\2\2\2NU\5\20"+
+		"\t\2OU\5\22\n\2PU\5\36\20\2QU\5\"\22\2RU\5$\23\2SU\5&\24\2TN\3\2\2\2T"+
+		"O\3\2\2\2TP\3\2\2\2TQ\3\2\2\2TR\3\2\2\2TS\3\2\2\2U\17\3\2\2\2VW\7 \2\2"+
+		"WX\7!\2\2XY\5\22\n\2YZ\7\t\2\2Z\21\3\2\2\2[\\\b\n\1\2\\]\5\26\f\2]^\5"+
+		"\22\n\2^_\5\30\r\2_e\3\2\2\2`e\7 \2\2ae\7\"\2\2be\7#\2\2ce\7$\2\2d[\3"+
+		"\2\2\2d`\3\2\2\2da\3\2\2\2db\3\2\2\2dc\3\2\2\2el\3\2\2\2fg\f\7\2\2gh\5"+
+		"\24\13\2hi\5\22\n\bik\3\2\2\2jf\3\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2"+
+		"m\23\3\2\2\2nl\3\2\2\2op\t\3\2\2p\25\3\2\2\2qr\7\4\2\2r\27\3\2\2\2st\7"+
+		"\5\2\2t\31\3\2\2\2uv\5\22\n\2vw\5\34\17\2wx\5\22\n\2x\33\3\2\2\2yz\t\4"+
+		"\2\2z\35\3\2\2\2{|\7\26\2\2|}\7\4\2\2}~\5\32\16\2~\177\7\5\2\2\177\u0080"+
+		"\7\27\2\2\u0080\u0081\7\6\2\2\u0081\u0082\5\f\7\2\u0082\u0083\7\b\2\2"+
+		"\u0083\u0084\5 \21\2\u0084\37\3\2\2\2\u0085\u0086\7\30\2\2\u0086\u0087"+
+		"\7\6\2\2\u0087\u0088\5\f\7\2\u0088\u0089\7\b\2\2\u0089\u008c\3\2\2\2\u008a"+
+		"\u008c\3\2\2\2\u008b\u0085\3\2\2\2\u008b\u008a\3\2\2\2\u008c!\3\2\2\2"+
+		"\u008d\u008e\7\31\2\2\u008e\u008f\7\6\2\2\u008f\u0090\5\f\7\2\u0090\u0091"+
+		"\7\b\2\2\u0091\u0092\7\32\2\2\u0092\u0093\7\4\2\2\u0093\u0094\5\32\16"+
+		"\2\u0094\u0095\7\5\2\2\u0095#\3\2\2\2\u0096\u0097\7\33\2\2\u0097\u0098"+
+		"\7\4\2\2\u0098\u0099\5\n\6\2\u0099\u009a\7\5\2\2\u009a\u009b\7\t\2\2\u009b"+
+		"%\3\2\2\2\u009c\u009d\7\34\2\2\u009d\u009e\7\4\2\2\u009e\u009f\5(\25\2"+
+		"\u009f\u00a0\7\5\2\2\u00a0\u00a1\7\t\2\2\u00a1\'\3\2\2\2\u00a2\u00a5\7"+
+		"%\2\2\u00a3\u00a5\5\n\6\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2\u00a5"+
+		")\3\2\2\2\n:FLTdl\u008b\u00a4";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

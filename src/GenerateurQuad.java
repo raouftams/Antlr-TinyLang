@@ -37,8 +37,10 @@ public class GenerateurQuad extends TinyLangBaseListener{
     }
 
     int saveCondition;
-    @Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx)
-    {/*
+    @Override public void exitExpressionLogique(TinyLangParser.ExpressionLogiqueContext ctx) {
+
+
+        /*
         String opl;
         switch (ctx.getChild(2).getText()) {
             case "<": opl = "BL";

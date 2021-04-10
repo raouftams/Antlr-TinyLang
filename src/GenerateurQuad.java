@@ -11,10 +11,8 @@ public class GenerateurQuad extends TinyLangBaseListener{
     private LinkedList<String> postStack = new LinkedList<>();
     private HashMap<ParserRuleContext, String> ruleTemp = new HashMap<>();
     public ListQuad quads = new ListQuad();
-    private Transform transform = new Transform();
     private int cptTemps = 0;
     private int i = 0;
-    private int saveCondition;
     private LinkedList<String> tStack = new LinkedList<String>();
     private LinkedList<String> rStack = new LinkedList<String>();
     private Stack<Integer> conditionsQuads = new Stack<Integer>();

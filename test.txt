@@ -5,7 +5,12 @@ compil Algo(){
     stringCompil ch;
 
     start
+<<<<<<< HEAD
     i = n + h * (c -d) /k;
+=======
+    i = f / 0;
+    i = n + i * c - d /0;
+>>>>>>> 9e497c43b4e7e9fd6e1fe81ad7fe84523ed3e1fc
     f = f + z + z;
     n = i;
     if( n != i ) then {

@@ -117,26 +117,6 @@ public class Listener extends TinyLangBaseListener{
                 this.addError("Erreur [ligne " + ctx.start.getLine() + ", colonne " + ctx.start.getCharPositionInLine() + "]: Incompatibilité de type dans l'expression ( " + type1 + " et " + type2 + " )");
             }
         }
-        /*if(ctx.IDENTIFIANT() != null) {
-            if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
-                this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
-            }
-        }
-        if (ctx.STRING() != null ){
-                this.checkExprType(ctx, "stringCompil");
-            }
-        if(ctx.INT() != null){
-                this.checkExprType(ctx, "intCompil");
-            }
-        if(ctx.FLOAT() != null ){
-                this.checkExprType(ctx, "floatCompil");
-            }
-
-        if (!(ctx.getParent() instanceof TinyLangParser.ExpressionLogiqueContext)){
-            if(!this.pfExpression.empty()){
-                this.pfExpression.clear();
-            }
-        }*/
     }
 
     @Override

@@ -77,7 +77,7 @@ public class CodeObjet {
                 } else {
                     opt = quad.getOpt();
                     if (opt.equals("="))
-                        this.objectCode.add("Mov " + quad.getResult() + ", " + quad.getOp2());
+                        this.objectCode.add("Mov " + quad.getResult() + ", " + quad.getOp1());
 
                     if (opt.equals("READ"))
                         this.objectCode.add("INPUT " + quad.getOp1());

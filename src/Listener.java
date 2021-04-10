@@ -72,8 +72,6 @@ public class Listener extends TinyLangBaseListener{
 
     @Override
     public void exitExpressionArithmetique(TinyLangParser.ExpressionArithmetiqueContext ctx) {
-
-        System.out.println(optStack.toString());
         if(ctx.IDENTIFIANT() != null) {
             if (declared(ctx.IDENTIFIANT().getText(), ctx.start.getLine(), ctx.start.getCharPositionInLine())) {
                 this.checkExprType(ctx, this.table.getElement(ctx.IDENTIFIANT().getText()).type);
@@ -93,8 +91,11 @@ public class Listener extends TinyLangBaseListener{
 
         if (ctx.opt() != null){
             if (!this.optStack.empty())
-                if(ctx.opt().getText().equals("/") && this.optStack.peek().equals("0"))
+                if(ctx.opt().getText().equals("/") && this.optStack.peek().equals("0")){
                     this.addError("Erreur [ligne " + ctx.start.getLine() + " , colonne " + ctx.start.getCharPositionInLine() + "]: Division par 0.");
+                    this.optStack.clear();
+                }
+
         }
 
         if (!(ctx.getParent() instanceof TinyLangParser.ExpressionArithmetiqueContext)){
